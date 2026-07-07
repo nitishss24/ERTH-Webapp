@@ -274,7 +274,6 @@ function LegalBadge({ legal, small }) {
         </div>
       )}
     </div>
-    </ErrorBoundary>
   );
 }
 
@@ -2568,7 +2567,6 @@ export default function App() {
   const openEnquiry = (p) => { setModalProp(null); setEnquiryProp(p === undefined ? null : p); };
 
   return (
-    <ErrorBoundary>
     <div style={{ fontFamily: "Georgia,serif", overflowX: "hidden", background: C.cream }}>
       <Nav page={page} go={go} onEnquire={openEnquiry} />
       <TrustBar />
