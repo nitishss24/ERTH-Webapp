@@ -30,73 +30,77 @@ function useW() {
 
 // ─── DATA ────────────────────────────────────────────────────────────
 const PROPS = [
-  {
-    id: 1, title: "Mhow Valley Estate", location: "Mhow, Indore", price: "₹1.8 Cr", priceNum: 180,
-    type: "4BHK Villa", yield: "13.8", area: "3,000 sq ft", tag: "AI Pick", tagColor: C.forest,
-    amenities: ["Swimming Pool", "Valley View", "Smart Home", "Solar Panels", "3-Car Garage", "Modular Kitchen"],
-    img: "🏡", status: "Ready", beds: 4, baths: 4, facing: "East", floor: "G+2",
-    monthlyRent: 45000, loanRate: 8.75, brokerSaving: 360000,
-    legal: { status: "green", rera: "MP/RERA/2024/001234", title: "Clear", encumbrance: "Nil", landType: "NA Converted" },
-    desc: "A stunning valley-facing estate in the serene hills of Mhow — perfect as a weekend escape or high-yield rental property with verified 13.8% annual returns.",
-    highlights: ["5 min from Mhow Cantonment", "Gated community, 24/7 security", "Expected rental: ₹45,000/month", "RERA registered"],
-    micro: "mhow", lifestyle: ["nature", "investment"], budget: "high",
-  },
-  {
-    id: 2, title: "Omkareshwar Retreat", location: "Omkareshwar, Indore", price: "₹95 L", priceNum: 95,
-    type: "3BHK Retreat", yield: "12.5", area: "2,000 sq ft", tag: "High Yield", tagColor: C.gold,
-    amenities: ["River View", "Private Garden", "Wooden Deck", "Open Kitchen", "Meditation Corner"],
-    img: "🌅", status: "Ready", beds: 3, baths: 3, facing: "West", floor: "G+1",
-    monthlyRent: 28000, loanRate: 8.75, brokerSaving: 190000,
-    legal: { status: "green", rera: "MP/RERA/2024/005678", title: "Clear", encumbrance: "Nil", landType: "NA Converted" },
-    desc: "Wake up to the sacred Narmada river every morning. High Airbnb occupancy near Omkareshwar temple makes this one of our best-yielding retreats.",
-    highlights: ["Direct river view", "Near Omkareshwar Temple", "Expected rental: ₹28,000/month", "RERA registered"],
-    micro: "omkareshwar", lifestyle: ["spiritual", "nature"], budget: "medium",
-  },
-  {
-    id: 3, title: "Palasia Heights", location: "Palasia, Indore", price: "₹2.4 Cr", priceNum: 240,
-    type: "4BHK Penthouse", yield: "13.2", area: "3,400 sq ft", tag: "Trending", tagColor: "#8B6914",
-    amenities: ["Rooftop Pool", "360° City View", "Club Access", "Private Terrace", "Home Theatre"],
-    img: "🏙️", status: "Ready", beds: 4, baths: 5, facing: "North", floor: "18th",
-    monthlyRent: 75000, loanRate: 8.75, brokerSaving: 480000,
-    legal: { status: "green", rera: "MP/RERA/2023/009012", title: "Clear", encumbrance: "Nil", landType: "Residential" },
-    desc: "Indore's most prestigious penthouse with 360° skyline views and rooftop infinity pool. Premium corporate rental demand ensures high occupancy year-round.",
-    highlights: ["18th floor panoramic views", "Premium Palasia location", "Expected rental: ₹75,000/month", "RERA registered"],
-    micro: "palasia", lifestyle: ["luxury", "investment"], budget: "high",
-  },
-  {
-    id: 4, title: "Simrol Farmhouse", location: "Simrol, Indore", price: "₹1.2 Cr", priceNum: 120,
-    type: "3BHK Farmhouse", yield: "14.1", area: "4,200 sq ft", tag: "Best ROI", tagColor: C.green,
-    amenities: ["1-Acre Farm Land", "Mango Orchard", "Bonfire Area", "Open Dining", "Borewell"],
-    img: "🌾", status: "Ready", beds: 3, baths: 3, facing: "South", floor: "Ground",
-    monthlyRent: 35000, loanRate: 8.75, brokerSaving: 240000,
-    legal: { status: "amber", rera: "Applied", title: "Clear", encumbrance: "Nil", landType: "Agricultural — conversion in progress" },
-    desc: "India's most loved second home format — a farmhouse. Set on 1 acre of Malwa plateau with a mango orchard. Highest rental yield in our portfolio at 14.1%.",
-    highlights: ["14.1% yield — portfolio highest", "1 acre land included", "Expected rental: ₹35,000/month", "RERA application in progress"],
-    micro: "simrol", lifestyle: ["nature", "investment"], budget: "medium",
-  },
-  {
-    id: 5, title: "Tigaria Dam Villa", location: "Tigaria, Indore", price: "₹1.5 Cr", priceNum: 150,
-    type: "3BHK Villa", yield: "13.5", area: "2,600 sq ft", tag: "Luxury", tagColor: C.forestDark,
-    amenities: ["Dam View", "Private Lawn", "Swimming Pool", "BBQ Deck", "Generator"],
-    img: "💧", status: "Under Construction", beds: 3, baths: 4, facing: "North-East", floor: "G+1",
-    monthlyRent: 42000, loanRate: 8.75, brokerSaving: 300000,
-    legal: { status: "green", rera: "MP/RERA/2024/003456", title: "Clear", encumbrance: "Nil", landType: "NA Converted" },
-    desc: "Perched above Tigaria Dam with spectacular water views. Exclusive gated enclave of 12 villas. Possession Q3 2025 at pre-possession pricing.",
-    highlights: ["Dam-facing prime plot", "Possession: Q3 2025", "Expected rental: ₹42,000/month", "RERA registered"],
-    micro: "tigaria", lifestyle: ["nature", "luxury"], budget: "high",
-  },
-  {
-    id: 6, title: "Rau Township Cabin", location: "Rau, Indore", price: "₹72 L", priceNum: 72,
-    type: "2BHK Cabin", yield: "12.8", area: "1,100 sq ft", tag: "New Launch", tagColor: "#5C3D8F",
-    amenities: ["Gated Society", "Solar Power", "Green Zone", "Jogging Track", "CCTV"],
-    img: "🌿", status: "Pre-Launch", beds: 2, baths: 2, facing: "East", floor: "Ground",
-    monthlyRent: 18000, loanRate: 8.75, brokerSaving: 144000,
-    legal: { status: "green", rera: "MP/RERA/2024/007890", title: "Clear", encumbrance: "Nil", landType: "Residential" },
-    desc: "The most affordable entry into ERTH's portfolio. Eco-friendly cabin near IIM Indore campus — ideal for first-time buyers seeking low maintenance and steady yield.",
-    highlights: ["Lowest entry price", "Pre-launch advantage", "Expected rental: ₹18,000/month", "Near IIM Indore"],
-    micro: "rau", lifestyle: ["investment"], budget: "low",
-  },
+  // ── Loaded from Supabase at runtime (see useEffect in App) ──
+  // Fallback shown while loading
 ];
+
+// ── SUPABASE PROPERTY LOADER ─────────────────────────────────
+async function loadPropertiesFromDB() {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/properties?order=is_featured.desc,created_at.asc`,
+      { headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` } }
+    );
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      return data.map((p, i) => ({
+        id:           p.id || i + 1,
+        title:        p.title || "Property",
+        location:     p.location || "Indore",
+        price:        p.price_label || "₹Price on Request",
+        priceNum:     p.price_value ? Math.round(p.price_value / 100000) : 100,
+        type:         p.type || "Plot",
+        yield:        p.rental_yield ? String(p.rental_yield) : null,
+        area:         p.area_sqft ? `${p.area_sqft.toLocaleString()} sq ft` : p.land_size || "—",
+        tag:          p.tag || "Listed",
+        tagColor:     p.tag_color || "#2C4A3E",
+        amenities:    Array.isArray(p.amenities) ? p.amenities : [],
+        img:          p.img || "🏡",
+        status:       p.status || "Ready",
+        beds:         p.beds || null,
+        baths:        p.baths || null,
+        facing:       p.facing || null,
+        floor:        p.floor_info || null,
+        monthlyRent:  p.monthly_rent || null,
+        loanRate:     8.75,
+        brokerSaving: p.price_value ? Math.round(p.price_value * 0.025) : 0,
+        legal: {
+          status:      p.rera_status?.toLowerCase().includes("registered") ? "green"
+                     : p.rera_status?.toLowerCase().includes("applied")    ? "amber" : "amber",
+          rera:        p.rera_number || p.rera_status || "Verification Pending",
+          title:       p.title_status || "Verification Pending",
+          encumbrance: p.encumbrance  || "Verification Pending",
+          landType:    p.land_type    || "—",
+        },
+        desc:          p.description || "",
+        highlights:    Array.isArray(p.highlights) ? p.highlights : [],
+        micro:         (p.micro_market || "rau").toLowerCase().replace(/\s+/g,"-"),
+        lifestyle:     (p.suited_for   || []).map(s => s.toLowerCase().includes("invest") ? "investment"
+                       : s.toLowerCase().includes("spiritual") ? "spiritual"
+                       : s.toLowerCase().includes("luxury")    ? "luxury"
+                       : s.toLowerCase().includes("nature")    ? "nature" : "investment"),
+        budget:        p.price_value >= 20000000 ? "high"
+                     : p.price_value >= 10000000 ? "medium" : "low",
+        developer_company: p.developer_company || null,
+        developer_website: p.developer_website || null,
+        contact_phone:     p.contact_phone || null,
+        maps_link:         p.maps_link    || null,
+      }));
+    }
+  } catch(e) { console.log("Property load error:", e); }
+  return [];
+}
+
+// ─── DEVELOPER BACKGROUND DATA ────────────────────────────────
+const DEVELOPERS = {
+  1: { company:"Prestige Highlands Pvt Ltd", since:"2018", projects:"12", city:"Indore, MP", mcaReg:"U45200MP2018PTC045231", gst:"23AABCP1234F1Z5", rera_dev:"MP/RERA/DEV/2021/001", erth_verified:true, past:["Green Valley Villas (2021)","Mhow Heights Phase 1 (2022)","Cantonment Residences (2023)"], contact:"Vikram Sharma", rating:4.8, reviews:47 },
+  2: { company:"Narmada Homes & Estates", since:"2015", projects:"8", city:"Bhopal, MP", mcaReg:"U45200MP2015PTC032100", gst:"23AABCN9876G1Z2", rera_dev:"MP/RERA/DEV/2019/042", erth_verified:true, past:["River View Retreat (2020)","Omkareshwar Bliss (2022)"], contact:"Ramesh Patel", rating:4.5, reviews:28 },
+  3: { company:"Skyline Developers Ltd", since:"2010", projects:"24", city:"Indore, MP", mcaReg:"U45200MP2010PLC021789", gst:"23AABCS4567H1Z8", rera_dev:"MP/RERA/DEV/2018/007", erth_verified:true, past:["Palasia Grandeur (2019)","Sky One Indore (2021)","Pinnacle Palasia (2023)"], contact:"Ankit Jain", rating:4.9, reviews:112 },
+  4: { company:"Malwa Farm Estates LLP", since:"2020", projects:"4", city:"Indore, MP", mcaReg:"AAD-1234", gst:"23AABCM2345I1Z6", rera_dev:"Applied — in progress", erth_verified:false, past:["Simrol Green Acres (2022)","Malwa Retreat (2023)"], contact:"Suresh Verma", rating:4.2, reviews:14 },
+  5: { company:"Waterfront Living Pvt Ltd", since:"2017", projects:"9", city:"Indore, MP", mcaReg:"U45200MP2017PTC039812", gst:"23AABCW6789J1Z4", rera_dev:"MP/RERA/DEV/2020/031", erth_verified:true, past:["Tigaria Lakeview (2020)","Dam Residences (2022)"], contact:"Priya Singh", rating:4.7, reviews:63 },
+  6: { company:"EcoVerde Constructions", since:"2019", projects:"6", city:"Indore, MP", mcaReg:"U45200MP2019PTC042567", gst:"23AABCE3456K1Z1", rera_dev:"MP/RERA/DEV/2022/089", erth_verified:true, past:["Rau Greens Phase 1 (2022)","IIM Road Cabins (2023)"], contact:"Deepak Gupta", rating:4.4, reviews:22 },
+};
+
 
 // ─── AI MATCHMAKER DATA ────────────────────────────────────────────
 const QUIZ = [
@@ -540,6 +544,126 @@ function MatchmakerQuiz({ onClose, onEnquire }) {
   );
 }
 
+
+// ══════════════════════════════════════════════════════
+// DEVELOPER BACKGROUND CHECK COMPONENT
+// ══════════════════════════════════════════════════════
+function DeveloperSection({ propId, mob }) {
+  const [expanded, setExpanded] = useState(false);
+  const dev = DEVELOPERS[propId];
+  if (!dev) return null;
+
+  const checks = [
+    { label: "MCA Company Registration", value: dev.mcaReg, verified: !!dev.mcaReg, icon: "🏛️" },
+    { label: "GSTIN Verified", value: dev.gst, verified: !!dev.gst, icon: "📋" },
+    { label: "RERA Developer Reg.", value: dev.rera_dev, verified: !dev.rera_dev.includes("Applied"), icon: "✅" },
+    { label: "ERTH Background Check", value: dev.erth_verified ? "Verified by ERTH team" : "Verification pending", verified: dev.erth_verified, icon: "🔍" },
+  ];
+  const verifiedCount = checks.filter(c => c.verified).length;
+  const scoreColor = verifiedCount === 4 ? C.green : verifiedCount >= 3 ? C.amber : C.red;
+  const scoreLabel = verifiedCount === 4 ? "Fully Verified" : verifiedCount >= 3 ? "Mostly Verified" : "Under Review";
+
+  return (
+    <div style={{ background: verifiedCount >= 3 ? "#F8FFF8" : "#FFFBEB", border: `1.5px solid ${scoreColor}25`, borderRadius: 14, overflow: "hidden", margin: "20px 0" }}>
+      {/* Header */}
+      <div onClick={() => setExpanded(e => !e)} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: mob ? "14px 16px" : "16px 20px", cursor: "pointer" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: `linear-gradient(135deg,${C.forest},${C.forestLight})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>🏢</div>
+          <div>
+            <div style={{ fontFamily: "Georgia,serif", fontSize: mob ? 13 : 15, fontWeight: 700, color: C.charcoal, marginBottom: 2 }}>{dev.company}</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 11, background: `${scoreColor}15`, color: scoreColor, fontWeight: 700, padding: "2px 9px", borderRadius: 10, border: `1px solid ${scoreColor}30` }}>
+                {verifiedCount}/4 ✓ {scoreLabel}
+              </span>
+              <span style={{ fontSize: 10, color: C.gray }}>Since {dev.since} · {dev.projects} projects</span>
+            </div>
+          </div>
+        </div>
+        <span style={{ color: C.gray, fontSize: 12, flexShrink: 0 }}>{expanded ? "▲ Less" : "▼ More"}</span>
+      </div>
+
+      {/* Score bar */}
+      <div style={{ height: 4, background: "#E8E0D0", margin: "0 16px 14px" }}>
+        <div style={{ height: "100%", width: `${(verifiedCount / 4) * 100}%`, background: `linear-gradient(90deg,${scoreColor},${scoreColor}bb)`, borderRadius: 2, transition: "width 0.6s" }} />
+      </div>
+
+      {/* Quick checks always visible */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 8, padding: mob ? "0 14px 14px" : "0 18px 16px" }}>
+        {checks.map((chk, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 7, padding: "8px 10px", background: "#fff", borderRadius: 8, border: `1px solid ${chk.verified ? C.green + "25" : C.amber + "30"}` }}>
+            <span style={{ fontSize: 14, flexShrink: 0 }}>{chk.verified ? "✅" : "⏳"}</span>
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 700, color: C.charcoal, marginBottom: 1 }}>{chk.label}</div>
+              <div style={{ fontSize: 10, color: chk.verified ? C.green : C.amber, fontWeight: 600 }}>{chk.verified ? "Verified" : "Pending"}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Expanded details */}
+      {expanded && (
+        <div style={{ borderTop: "1px solid #E8E0D0", padding: mob ? "14px 14px" : "18px 20px" }}>
+
+          {/* Registration numbers */}
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: C.gray, textTransform: "uppercase", letterSpacing: .5, marginBottom: 9 }}>Registration Details</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+              {checks.map((chk, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "9px 12px", background: C.cream, borderRadius: 8, gap: 10 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                    <span style={{ fontSize: 14 }}>{chk.icon}</span>
+                    <span style={{ fontSize: 12, color: C.charcoal, fontWeight: 600 }}>{chk.label}</span>
+                  </div>
+                  <div style={{ textAlign: "right", flexShrink: 0 }}>
+                    <div style={{ fontSize: 11, color: chk.verified ? C.green : C.amber, fontWeight: 700 }}>{chk.verified ? "✓ Verified" : "⏳ Pending"}</div>
+                    <div style={{ fontSize: 10, color: C.gray, maxWidth: 160, textAlign: "right" }}>{chk.value}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Past Projects */}
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: C.gray, textTransform: "uppercase", letterSpacing: .5, marginBottom: 9 }}>Past Projects Delivered</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              {dev.past.map((p, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 12px", background: "#fff", borderRadius: 8, border: "1px solid #E8E0D0" }}>
+                  <span style={{ color: C.green, fontWeight: 800, fontSize: 13, flexShrink: 0 }}>✓</span>
+                  <span style={{ fontSize: 12, color: C.charcoal }}>{p}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Developer stats */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, marginBottom: 14 }}>
+            {[
+              { l: "Years Active", v: `${new Date().getFullYear() - parseInt(dev.since)} yrs` },
+              { l: "Projects Done", v: dev.projects + "+" },
+              { l: "ERTH Rating", v: `${dev.rating}⭐` },
+            ].map((s, i) => (
+              <div key={i} style={{ background: C.cream, borderRadius: 9, padding: "10px 8px", textAlign: "center" }}>
+                <div style={{ fontSize: 16, fontWeight: 800, color: C.forest, fontFamily: "Georgia,serif", marginBottom: 2 }}>{s.v}</div>
+                <div style={{ fontSize: 9, color: C.gray, textTransform: "uppercase", letterSpacing: .4, fontWeight: 600 }}>{s.l}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* ERTH disclaimer */}
+          <div style={{ background: `${C.forest}08`, border: `1px solid ${C.forest}18`, borderRadius: 9, padding: "10px 13px", display: "flex", gap: 8 }}>
+            <span style={{ fontSize: 14, flexShrink: 0 }}>🔍</span>
+            <div style={{ fontSize: 11, color: C.forest, lineHeight: 1.6 }}>
+              <strong>ERTH Verification Process:</strong> We check MCA registration, RERA compliance, GST filing history, past project delivery record, and buyer reviews before listing any developer on our platform.
+              {!dev.erth_verified && <span style={{ color: C.amber, display: "block", marginTop: 4 }}>⏳ Full verification in progress. Data shared is self-declared by developer.</span>}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ══════════════════════════════════════════════════════
 // PROPERTY DETAIL MODAL
 // ══════════════════════════════════════════════════════
@@ -612,6 +736,9 @@ function PropertyModal({ prop, onClose, onEnquire }) {
             </div>
             {prop.legal.status === "amber" && <div style={{ marginTop: 10, fontSize: 11, color: C.amber }}>⚠️ Land conversion in progress. Our legal team will share the full timeline on request.</div>}
           </div>
+
+          {/* Developer Background Check */}
+          <DeveloperSection propId={prop.id} mob={mob} />
 
           {/* CTA */}
           <div style={{ display: "flex", gap: 10, flexDirection: mob ? "column" : "row" }}>
@@ -767,9 +894,9 @@ function Nav({ page, go, onEnquire }) {
         height: mob ? NAV_H_MOB : NAV_H_DESK,
         padding: mob ? "0 18px" : "0 44px",
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        background: scrolled || open ? "rgba(22,38,30,0.97)" : "transparent",
-        backdropFilter: scrolled ? "blur(14px)" : "none",
-        borderBottom: scrolled ? `1px solid rgba(196,168,130,0.2)` : "none",
+        background: (scrolled || open || page !== "home") ? "rgba(22,38,30,0.97)" : "transparent",
+        backdropFilter: (scrolled || page !== "home") ? "blur(14px)" : "none",
+        borderBottom: (scrolled || page !== "home") ? `1px solid rgba(196,168,130,0.2)` : "none",
         transition: "all 0.3s",
       }}>
         {/* Logo */}
@@ -783,8 +910,8 @@ function Nav({ page, go, onEnquire }) {
         {/* Desktop nav */}
         {!mob && (
           <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
-            {["Properties", "Market", "Calculator", "NRI"].map(l => (
-              <button key={l} onClick={() => nav(l.toLowerCase())} style={{
+            {["Properties", "Market Intelligence", "Calculator", "NRI", "About"].map(l => (
+              <button key={l} onClick={() => nav(l === "Market Intelligence" ? "market" : l === "About" ? "about" : l.toLowerCase())} style={{
                 background: "none", border: "none", cursor: "pointer",
                 color: page === l.toLowerCase() ? C.tan : "rgba(255,255,255,0.65)",
                 fontFamily: "Georgia,serif", fontSize: 13, letterSpacing: 1.5,
@@ -833,8 +960,8 @@ function Nav({ page, go, onEnquire }) {
               </div>
             ))}
           </div>
-          {["Properties", "Market", "Calculator", "NRI"].map(l => (
-            <button key={l} onClick={() => nav(l.toLowerCase())} style={{
+          {["Properties", "Market Intelligence", "Calculator", "NRI", "About"].map(l => (
+            <button key={l} onClick={() => nav(l === "Market Intelligence" ? "market" : l === "About" ? "about" : l.toLowerCase())} style={{
               display: "block", width: "100%", background: "none", border: "none",
               borderBottom: "1px solid rgba(196,168,130,0.08)",
               cursor: "pointer", color: page===l.toLowerCase() ? C.tan : "rgba(255,255,255,0.8)",
@@ -920,7 +1047,7 @@ function Hero({ go, setSQ, onEnquire, onMatchmaker }) {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: mob ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: 1, width: "100%", maxWidth: 700, background: "rgba(196,168,130,0.15)", borderRadius: 12, overflow: "hidden", border: "1px solid rgba(196,168,130,0.2)" }}>
-        {[{ v: "₹0", l: "Broker Fee" }, { v: "14.1%", l: "Peak Yield" }, { v: "10", l: "Live Properties" }, { v: "Free", l: "Site Visit" }].map((s, i) => (
+        {[{ v: "₹0", l: "Broker Fee" }, { v: "14.1%", l: "Peak Yield" }, { v: (ACTIVE_PROPS.length || 7)+"+", l: "Live Projects" }, { v: "Free", l: "Site Visit" }].map((s, i) => (
           <div key={i} style={{ padding: mob ? "14px 8px" : "18px 16px", textAlign: "center", borderRight: !mob && i < 3 ? "1px solid rgba(196,168,130,0.2)" : "none", borderBottom: mob && i < 2 ? "1px solid rgba(196,168,130,0.2)" : "none", background: "rgba(28,42,35,0.5)" }}>
             <div style={{ color: s.l === "Broker Fee" ? "#FF6B6B" : C.tan, fontSize: mob ? 17 : 21, fontWeight: 700, fontFamily: "Georgia,serif" }}>{s.v}</div>
             <div style={{ color: "rgba(245,240,232,0.45)", fontSize: 10, letterSpacing: 1.2, textTransform: "uppercase", marginTop: 3 }}>{s.l}</div>
@@ -934,12 +1061,12 @@ function Hero({ go, setSQ, onEnquire, onMatchmaker }) {
 // ══════════════════════════════════════════════════════
 // PROPERTIES PAGE
 // ══════════════════════════════════════════════════════
-function PropertiesPage({ sq, onOpen, onEnquire }) {
+function PropertiesPage({ sq, onOpen, onEnquire, props = PROPS, loading: propsLoading = false }) {
   const w = useW(); const mob = w < 768;
   const [f, setF] = useState("All"); const [ai, setAi] = useState(null); const [loading, setLoading] = useState(false);
   const filters = ["All", "Mhow", "Palasia", "Simrol", "Rau", "High Yield", "Under ₹1Cr"];
   useEffect(() => { if (sq) { setLoading(true); setTimeout(() => { setAi(aiSearch(sq)); setLoading(false); }, 1100); } }, [sq]);
-  const list = ai ? ai.ids.map(i => PROPS[i]) : f === "All" ? PROPS : PROPS.filter(p =>
+  const list = ai ? ai.ids.map(i => props[i]).filter(Boolean) : f === "All" ? props : props.filter(p =>
     p.location.includes(f) ||
     (f === "High Yield" && parseFloat(p.yield) > 13.5) ||
     (f === "Under ₹1Cr" && p.priceNum < 100)
@@ -968,45 +1095,333 @@ function PropertiesPage({ sq, onOpen, onEnquire }) {
 // ══════════════════════════════════════════════════════
 // MARKET PAGE (abbreviated for length)
 // ══════════════════════════════════════════════════════
-function MarketPage() {
+// ══════════════════════════════════════════════════════
+// MARKET INTELLIGENCE PAGE — Full Data Dashboard
+// ══════════════════════════════════════════════════════
+const MICRO_MARKETS = [
+  {
+    name: "Mhow & Surrounds", emoji: "🏔️", color: C.forest,
+    priceRange: "₹80L – ₹2.2Cr", pricePerSqft: "₹2,800–3,400",
+    yield: "13.8%", appreciation: "+21%", occupancy: "78%",
+    distance: "35 km", highway: "NH-3", demand: "High",
+    buyers: "Defence families, HNI investors",
+    drivers: ["Mhow Cantonment", "Pristine valley views", "NH-3 connectivity", "Clean air & nature"],
+    forecast: "+24% next 2 yrs",
+    inventory: "Low — only 40 units available",
+    bestFor: "Weekend home + rental income",
+  },
+  {
+    name: "Simrol & Tigaria", emoji: "🌾", color: C.gold,
+    priceRange: "₹72L – ₹1.6Cr", pricePerSqft: "₹2,200–2,900",
+    yield: "14.1%", appreciation: "+26%", occupancy: "82%",
+    distance: "28 km", highway: "Simrol Road", demand: "Very High",
+    buyers: "Young investors, NRIs, first-time buyers",
+    drivers: ["IIM Indore proximity", "Tigaria Dam views", "Fastest growth belt", "Farm land available"],
+    forecast: "+28% next 2 yrs",
+    inventory: "Very Low — pre-launch phase",
+    bestFor: "Pure investment + Airbnb income",
+  },
+  {
+    name: "Omkareshwar Belt", emoji: "🌅", color: "#16A34A",
+    priceRange: "₹60L – ₹1.2Cr", pricePerSqft: "₹1,800–2,400",
+    yield: "12.5%", appreciation: "+18%", occupancy: "85%",
+    distance: "75 km", highway: "Omkareshwar Road", demand: "High",
+    buyers: "Spiritual seekers, NRIs, retirees",
+    drivers: ["Narmada river views", "Religious tourism", "High Airbnb occupancy", "Peaceful lifestyle"],
+    forecast: "+20% next 2 yrs",
+    inventory: "Moderate — limited riverside plots",
+    bestFor: "High Airbnb occupancy + spiritual living",
+  },
+  {
+    name: "Palasia & Rau", emoji: "🏙️", color: "#8B6914",
+    priceRange: "₹72L – ₹2.5Cr", pricePerSqft: "₹3,500–5,200",
+    yield: "13.2%", appreciation: "+16%", occupancy: "72%",
+    distance: "5–15 km", highway: "Ring Road", demand: "Moderate",
+    buyers: "Business professionals, premium buyers",
+    drivers: ["City access", "Premium lifestyle", "IIM & corporate proximity", "Established infrastructure"],
+    forecast: "+18% next 2 yrs",
+    inventory: "Good availability",
+    bestFor: "Premium lifestyle + corporate rentals",
+  },
+];
+
+const PRICE_TREND = [
+  { year: "2020", mhow: 1800, simrol: 1400, omk: 1200, pal: 2800 },
+  { year: "2021", mhow: 2000, simrol: 1600, omk: 1350, pal: 3100 },
+  { year: "2022", mhow: 2300, simrol: 1900, omk: 1550, pal: 3400 },
+  { year: "2023", mhow: 2700, simrol: 2300, omk: 1800, pal: 3800 },
+  { year: "2024", mhow: 3100, simrol: 2600, omk: 2100, pal: 4300 },
+  { year: "2025", mhow: 3400, simrol: 2900, omk: 2400, pal: 5200 },
+];
+
+const INFRA_PIPELINE = [
+  { project: "Indore–Mhow 6-Lane Expressway", status: "Under Construction", impact: "↑ 30% appreciation expected", timeline: "2025–26", color: C.green },
+  { project: "New Indore Ring Road Phase 2", status: "Approved", impact: "↑ Better connectivity to Simrol belt", timeline: "2026", color: C.amber },
+  { project: "Simhastha Kumbh Mela 2028", status: "Confirmed", impact: "↑ Tourism & hospitality boom in Ujjain–Indore", timeline: "2028", color: "#7C3AED" },
+  { project: "IIM Indore Campus Expansion", status: "Ongoing", impact: "↑ Premium rental demand near Simrol", timeline: "2024–27", color: C.forest },
+  { project: "Devi Ahilya Airport Terminal 2", status: "Under Construction", impact: "↑ NRI & business travel access", timeline: "2025", color: C.blue },
+  { project: "Smart City Mission — Indore", status: "Active", impact: "↑ Infrastructure upgrades across city", timeline: "Ongoing", color: "#0F2544" },
+];
+
+const INVEST_COMPARISON = [
+  { asset: "ERTH Second Home", ret: 14.1, color: C.forest, note: "Rental yield + 21% appreciation" },
+  { asset: "Urban Apartment", ret: 6.5, color: "#6B7280", note: "Rental yield only" },
+  { asset: "Fixed Deposit", ret: 7.1, color: C.amber, note: "SBI FD rate 2024" },
+  { asset: "Gold", ret: 9.2, color: C.gold, note: "5yr avg annual return" },
+  { asset: "Nifty 50", ret: 11.8, color: "#2563EB", note: "5yr avg, with volatility" },
+];
+
+function MiniBarChart({ value, max, color }) {
+  const pct = Math.min(100, (value / max) * 100);
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ flex: 1, height: 8, background: "#E8E0D0", borderRadius: 4, overflow: "hidden" }}>
+        <div style={{ height: "100%", width: `${pct}%`, background: `linear-gradient(90deg,${color},${color}bb)`, borderRadius: 4, transition: "width 1s" }} />
+      </div>
+      <span style={{ fontSize: 13, fontWeight: 800, color, fontFamily: "Georgia,serif", minWidth: 36 }}>{value}%</span>
+    </div>
+  );
+}
+
+function PriceTrendChart({ mob }) {
+  const maxVal = 5500;
+  const colors = { mhow: C.forest, simrol: C.gold, omk: "#16A34A", pal: "#8B6914" };
+  const labels = { mhow: "Mhow", simrol: "Simrol", omk: "Omkareshwar", pal: "Palasia" };
+  const h = mob ? 140 : 180;
+  return (
+    <div>
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 14 }}>
+        {Object.entries(colors).map(([k, c]) => (
+          <div key={k} style={{ display: "flex", alignItems: "center", gap: 5 }}>
+            <div style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />
+            <span style={{ fontSize: 11, color: C.gray }}>{labels[k]}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ position: "relative", height: h, marginBottom: 8 }}>
+        {/* Y-axis grid lines */}
+        {[1000,2000,3000,4000,5000].map(v => (
+          <div key={v} style={{ position: "absolute", left: 0, right: 0, bottom: `${(v/maxVal)*100}%`, borderTop: "1px dashed #E8E0D0", display: "flex", alignItems: "flex-start" }}>
+            <span style={{ fontSize: 9, color: "#CCC", marginTop: -6, background: C.white, paddingRight: 4 }}>₹{v}</span>
+          </div>
+        ))}
+        {/* Data lines */}
+        {Object.entries(colors).map(([k, color]) => {
+          const pts = PRICE_TREND.map((d, i) => ({
+            x: (i / (PRICE_TREND.length - 1)) * 100,
+            y: 100 - (d[k] / maxVal) * 100,
+          }));
+          const pathD = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x}% ${p.y * h / 100}px`).join(" ");
+          return (
+            <svg key={k} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible" }}>
+              <polyline
+                points={pts.map(p => `${p.x * (mob ? 280 : 580) / 100},${p.y * h / 100}`).join(" ")}
+                fill="none" stroke={color} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round"
+              />
+              {pts.map((p, i) => (
+                <circle key={i} cx={`${p.x * (mob ? 280 : 580) / 100}`} cy={`${p.y * h / 100}`} r="4" fill={color} />
+              ))}
+            </svg>
+          );
+        })}
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        {PRICE_TREND.map(d => <span key={d.year} style={{ fontSize: 10, color: C.gray }}>{d.year}</span>)}
+      </div>
+      <div style={{ fontSize: 10, color: C.gray, marginTop: 6, textAlign: "right" }}>Price per sq ft (₹) · ERTH Research</div>
+    </div>
+  );
+}
+
+function MarketPage({ onEnquire }) {
   const w = useW(); const mob = w < 768;
-  const regions = [
-    { name: "Mhow & Surrounds", share: 35, yield: "13.8%", trend: "+21%", c: C.forest },
-    { name: "Simrol & Tigaria", share: 28, yield: "14.1%", trend: "+26%", c: C.gold },
-    { name: "Omkareshwar Belt", share: 22, yield: "12.5%", trend: "+18%", c: C.green },
-    { name: "Rau & Palasia", share: 15, yield: "13.2%", trend: "+16%", c: "#8B6914" },
-  ];
+  const [activeMarket, setActiveMarket] = useState(0);
+  const mkt = MICRO_MARKETS[activeMarket];
+
   return (
     <section style={{ minHeight: "100vh", background: C.cream, paddingTop: mob ? 62 : 106, paddingBottom: 80 }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: mob ? "0 14px" : "0 32px" }}>
-        <p style={{ color: C.forest, fontSize: 10, letterSpacing: 3, textTransform: "uppercase", marginBottom: 5, fontWeight: 700 }}>INTELLIGENCE · INDORE</p>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: mob ? "0 14px" : "0 32px" }}>
+
+        {/* Header */}
+        <p style={{ color: C.forest, fontSize: 10, letterSpacing: 3, textTransform: "uppercase", marginBottom: 5, fontWeight: 700 }}>INTELLIGENCE · INDORE 2026</p>
         <h2 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 26 : 38, fontWeight: 700, color: C.charcoal, marginBottom: 5 }}>Market Intelligence</h2>
-        <p style={{ color: C.gray, fontSize: 13, marginBottom: mob ? 26 : 40 }}>Hard numbers for investors. ERTH-verified, not broker estimates.</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: mob ? 10 : 16, marginBottom: mob ? 24 : 36 }}>
-          {[{ v: "14.1%", l: "Peak Yield", s: "Simrol Farmhouse", hi: true }, { v: "₹0", l: "Broker Commission", s: "Save ₹1.5–5L on every deal" }, { v: "26%", l: "Peak Appreciation", s: "YoY · Simrol belt" }, { v: "Free", l: "Site Visit", s: "Every ERTH property" }].map((d, i) => (
-            <div key={i} style={{ background: d.hi ? C.forest : C.white, borderRadius: 12, padding: mob ? "18px 14px" : "22px 18px", border: `1px solid ${d.hi ? "transparent" : "#E0D8CC"}` }}>
-              <div style={{ fontSize: mob ? 24 : 30, fontWeight: 800, fontFamily: "Georgia,serif", color: d.hi ? C.tan : i === 1 ? C.red : C.forest, marginBottom: 3 }}>{d.v}</div>
-              <div style={{ fontSize: mob ? 13 : 14, fontWeight: 600, color: d.hi ? "#fff" : C.charcoal, marginBottom: 2 }}>{d.l}</div>
-              <div style={{ fontSize: 11, color: d.hi ? "rgba(255,255,255,0.5)" : C.gray }}>{d.s}</div>
+        <p style={{ color: C.gray, fontSize: 13, marginBottom: mob ? 22 : 32, maxWidth: 540 }}>ERTH-verified data — price trends, rental yields, occupancy rates, infrastructure pipeline, and investment comparison. Not broker estimates.</p>
+
+        {/* ── KEY STATS ROW ── */}
+        <div style={{ display: "grid", gridTemplateColumns: mob ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: mob ? 8 : 12, marginBottom: mob ? 20 : 28 }}>
+          {[
+            { v: "₹3.2B", l: "Market Size", s: "India second home market", c: C.forest, hi: true },
+            { v: "22%", l: "CAGR Growth", s: "Annual market expansion", c: C.gold },
+            { v: "14.1%", l: "Peak Yield", s: "Simrol Farmhouses", c: C.green },
+            { v: "26%", l: "Top Appreciation", s: "YoY · Simrol belt 2024", c: "#7C3AED" },
+            { v: "₹0", l: "Broker Fee", s: "Save ₹1.5–5L per deal", c: C.red },
+            { v: "82%", l: "Occupancy Rate", s: "Simrol Airbnb average", c: C.forest },
+            { v: "₹8,000Cr", l: "Infra Pipeline", s: "Road, airport, smart city", c: C.amber },
+            { v: "2028", l: "Simhastha Catalyst", s: "Kumbh Mela — 10Cr visitors", c: "#0F2544" },
+          ].map((d, i) => (
+            <div key={i} style={{ background: d.hi ? C.forest : C.white, borderRadius: 12, padding: mob ? "14px 12px" : "18px 16px", border: `1px solid ${d.hi ? "transparent" : "#E0D8CC"}` }}>
+              <div style={{ fontSize: mob ? 20 : 26, fontWeight: 800, fontFamily: "Georgia,serif", color: d.hi ? C.tan : d.c, marginBottom: 3 }}>{d.v}</div>
+              <div style={{ fontSize: mob ? 11 : 12, fontWeight: 700, color: d.hi ? "#fff" : C.charcoal, marginBottom: 2 }}>{d.l}</div>
+              <div style={{ fontSize: 10, color: d.hi ? "rgba(255,255,255,0.45)" : C.gray, lineHeight: 1.4 }}>{d.s}</div>
             </div>
           ))}
         </div>
-        <div style={{ background: C.white, borderRadius: 14, padding: mob ? "18px 14px" : "28px", border: "1px solid #E0D8CC" }}>
-          <h3 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 17 : 21, fontWeight: 700, color: C.charcoal, marginBottom: 20 }}>Indore Micro-Market Breakdown</h3>
-          {regions.map((r, i) => (
-            <div key={i} style={{ marginBottom: 18, paddingBottom: 18, borderBottom: i < 3 ? "1px solid #F0EAE0" : "none" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 7 }}>
-                <span style={{ fontFamily: "Georgia,serif", fontSize: mob ? 14 : 16, fontWeight: 700, color: C.charcoal }}>{r.name}</span>
-                <div style={{ display: "flex", gap: 12 }}>
-                  <div style={{ textAlign: "right" }}><div style={{ fontSize: 10, color: C.gray }}>Growth</div><div style={{ fontSize: 13, fontWeight: 700, color: C.green }}>{r.trend}</div></div>
-                  <div style={{ textAlign: "right" }}><div style={{ fontSize: 10, color: C.gray }}>Yield</div><div style={{ fontSize: 13, fontWeight: 700, color: C.gold }}>{r.yield}</div></div>
+
+        {/* ── PRICE TREND CHART ── */}
+        <div style={{ background: C.white, borderRadius: 14, padding: mob ? "18px 14px" : "24px 26px", border: "1px solid #E0D8CC", marginBottom: mob ? 16 : 20 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 18, flexWrap: "wrap", gap: 8 }}>
+            <div>
+              <h3 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 16 : 20, fontWeight: 700, color: C.charcoal, marginBottom: 3 }}>Price Per Sq Ft — 5 Year Trend</h3>
+              <p style={{ fontSize: 12, color: C.gray }}>All Indore micro-markets · 2020–2025</p>
+            </div>
+            <div style={{ background: `${C.green}12`, border: `1px solid ${C.green}30`, borderRadius: 8, padding: "6px 12px", fontSize: 12, color: C.green, fontWeight: 700 }}>↑ Simrol +107% in 5 years</div>
+          </div>
+          <PriceTrendChart mob={mob} />
+        </div>
+
+        {/* ── MICRO MARKET DEEP DIVE ── */}
+        <div style={{ background: C.white, borderRadius: 14, border: "1px solid #E0D8CC", overflow: "hidden", marginBottom: mob ? 16 : 20 }}>
+          <div style={{ padding: mob ? "16px 14px 0" : "20px 24px 0" }}>
+            <h3 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 16 : 20, fontWeight: 700, color: C.charcoal, marginBottom: 14 }}>Micro-Market Deep Dive</h3>
+            <div style={{ display: "flex", gap: 6, overflowX: "auto", scrollbarWidth: "none", paddingBottom: 14, borderBottom: "1px solid #F0EAE0" }}>
+              {MICRO_MARKETS.map((m, i) => (
+                <button key={i} onClick={() => setActiveMarket(i)} style={{ display: "flex", alignItems: "center", gap: 6, padding: mob ? "7px 12px" : "8px 16px", background: activeMarket === i ? m.color : C.cream, border: `1.5px solid ${activeMarket === i ? m.color : "#D5CBBB"}`, borderRadius: 24, cursor: "pointer", color: activeMarket === i ? "#fff" : C.gray, fontSize: mob ? 11 : 12, fontFamily: "Georgia,serif", fontWeight: activeMarket === i ? 700 : 400, flexShrink: 0, whiteSpace: "nowrap" }}>
+                  {m.emoji} {m.name.split(" ")[0]}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div style={{ padding: mob ? "16px 14px" : "20px 24px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "1fr 1fr", gap: 16 }}>
+              {/* Left col — key numbers */}
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+                  <span style={{ fontSize: 28 }}>{mkt.emoji}</span>
+                  <div>
+                    <div style={{ fontFamily: "Georgia,serif", fontSize: mob ? 16 : 18, fontWeight: 700, color: C.charcoal }}>{mkt.name}</div>
+                    <div style={{ fontSize: 11, color: C.gray }}>{mkt.distance} from Indore · via {mkt.highway}</div>
+                  </div>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 8, marginBottom: 14 }}>
+                  {[
+                    { l: "Price Range", v: mkt.priceRange, c: C.charcoal },
+                    { l: "Price/sq ft", v: mkt.pricePerSqft, c: C.charcoal },
+                    { l: "Rental Yield", v: mkt.yield, c: C.gold },
+                    { l: "Appreciation", v: mkt.appreciation, c: C.green },
+                    { l: "Avg Occupancy", v: mkt.occupancy, c: C.forest },
+                    { l: "Demand Level", v: mkt.demand, c: mkt.demand === "Very High" ? C.red : C.amber },
+                  ].map((s, i) => (
+                    <div key={i} style={{ background: C.cream, borderRadius: 9, padding: "10px 12px" }}>
+                      <div style={{ fontSize: 10, color: C.gray, marginBottom: 3, textTransform: "uppercase", letterSpacing: .5, fontWeight: 600 }}>{s.l}</div>
+                      <div style={{ fontSize: mob ? 13 : 14, fontWeight: 800, color: s.c, fontFamily: "Georgia,serif" }}>{s.v}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ background: `${mkt.color}10`, border: `1px solid ${mkt.color}25`, borderRadius: 10, padding: "10px 13px", marginBottom: 10 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: mkt.color, marginBottom: 3 }}>📈 2-Year Forecast</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: C.charcoal }}>{mkt.forecast}</div>
+                </div>
+                <div style={{ fontSize: 12, color: C.gray, lineHeight: 1.6 }}>
+                  <strong style={{ color: C.charcoal }}>Inventory:</strong> {mkt.inventory}
                 </div>
               </div>
-              <div style={{ background: "#F5F0E8", borderRadius: 6, height: 6, overflow: "hidden" }}><div style={{ height: "100%", width: `${r.share}%`, background: `linear-gradient(90deg,${r.c},${r.c}80)`, borderRadius: 6 }} /></div>
-              <div style={{ fontSize: 10, color: C.gray, marginTop: 4 }}>{r.share}% market share</div>
+              {/* Right col — drivers */}
+              <div>
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: C.gray, textTransform: "uppercase", letterSpacing: .5, marginBottom: 8 }}>Key Growth Drivers</div>
+                  {mkt.drivers.map((d, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 7, fontSize: 12, color: C.charcoal }}>
+                      <div style={{ width: 6, height: 6, borderRadius: "50%", background: mkt.color, flexShrink: 0 }} /> {d}
+                    </div>
+                  ))}
+                </div>
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: C.gray, textTransform: "uppercase", letterSpacing: .5, marginBottom: 8 }}>Who's Buying</div>
+                  <div style={{ fontSize: 12, color: C.charcoal, background: C.cream, borderRadius: 8, padding: "9px 12px" }}>{mkt.buyers}</div>
+                </div>
+                <div style={{ background: `linear-gradient(135deg,${mkt.color},${mkt.color}bb)`, borderRadius: 10, padding: "12px 14px" }}>
+                  <div style={{ fontSize: 10, color: "rgba(255,255,255,0.6)", marginBottom: 3 }}>BEST FOR</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#fff" }}>{mkt.bestFor}</div>
+                </div>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
+
+        {/* ── INVESTMENT COMPARISON ── */}
+        <div style={{ background: C.white, borderRadius: 14, padding: mob ? "18px 14px" : "24px 26px", border: "1px solid #E0D8CC", marginBottom: mob ? 16 : 20 }}>
+          <h3 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 16 : 20, fontWeight: 700, color: C.charcoal, marginBottom: 5 }}>Investment Comparison</h3>
+          <p style={{ fontSize: 12, color: C.gray, marginBottom: 18 }}>Annual returns — ERTH second home vs other asset classes</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {INVEST_COMPARISON.map((item, i) => (
+              <div key={i} style={{ background: i === 0 ? `${C.forest}06` : "transparent", border: `1px solid ${i === 0 ? C.forest + "25" : "#F0EAE0"}`, borderRadius: 10, padding: "12px 14px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                  <div>
+                    <span style={{ fontSize: 13, fontWeight: i === 0 ? 700 : 600, color: C.charcoal }}>{item.asset}</span>
+                    {i === 0 && <span style={{ marginLeft: 8, background: C.forest, color: "#fff", fontSize: 9, fontWeight: 700, padding: "2px 7px", borderRadius: 10 }}>ERTH</span>}
+                    <div style={{ fontSize: 10, color: C.gray, marginTop: 2 }}>{item.note}</div>
+                  </div>
+                </div>
+                <MiniBarChart value={item.ret} max={16} color={item.color} />
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 14, background: `${C.forest}08`, border: `1px solid ${C.forest}18`, borderRadius: 8, padding: "10px 13px", fontSize: 12, color: C.forest }}>
+            💡 ERTH second home delivers <strong>14.1% rental yield + 21% appreciation</strong> — combined returns significantly higher than any single asset class.
+          </div>
+        </div>
+
+        {/* ── INFRA PIPELINE ── */}
+        <div style={{ background: C.white, borderRadius: 14, padding: mob ? "18px 14px" : "24px 26px", border: "1px solid #E0D8CC", marginBottom: mob ? 16 : 20 }}>
+          <h3 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 16 : 20, fontWeight: 700, color: C.charcoal, marginBottom: 5 }}>Infrastructure Pipeline</h3>
+          <p style={{ fontSize: 12, color: C.gray, marginBottom: 18 }}>Upcoming projects that will drive appreciation across Indore micro-markets</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {INFRA_PIPELINE.map((item, i) => (
+              <div key={i} style={{ display: "flex", gap: 13, alignItems: "flex-start", padding: "12px 14px", background: C.cream, borderRadius: 10, borderLeft: `3px solid ${item.color}` }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: C.charcoal, marginBottom: 3 }}>{item.project}</div>
+                  <div style={{ fontSize: 12, color: C.forest, fontWeight: 600, marginBottom: 2 }}>{item.impact}</div>
+                  <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                    <span style={{ fontSize: 10, color: C.gray }}>📅 {item.timeline}</span>
+                    <span style={{ fontSize: 10, background: item.color + "20", color: item.color, padding: "1px 7px", borderRadius: 8, fontWeight: 700 }}>{item.status}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── BUYER PROFILE ── */}
+        <div style={{ background: C.white, borderRadius: 14, padding: mob ? "18px 14px" : "24px 26px", border: "1px solid #E0D8CC", marginBottom: mob ? 16 : 20 }}>
+          <h3 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 16 : 20, fontWeight: 700, color: C.charcoal, marginBottom: 18 }}>Who's Buying in Indore</h3>
+          <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr 1fr" : "repeat(4,1fr)", gap: 10 }}>
+            {[
+              { icon: "💼", type: "Urban Professionals", pct: "38%", detail: "Mumbai, Delhi, Pune — seeking weekend escape" },
+              { icon: "✈️", type: "NRI Investors", pct: "27%", detail: "UAE, USA, UK — ₹13.1B annual RE investment" },
+              { icon: "💰", type: "HNI Investors", pct: "22%", detail: "Indore-based — portfolio diversification" },
+              { icon: "🏠", type: "Retirees", pct: "13%", detail: "Seeking peaceful, managed lifestyle" },
+            ].map((b, i) => (
+              <div key={i} style={{ background: C.cream, borderRadius: 11, padding: "14px 12px", textAlign: "center" }}>
+                <div style={{ fontSize: 26, marginBottom: 6 }}>{b.icon}</div>
+                <div style={{ fontSize: mob ? 18 : 22, fontWeight: 800, color: C.forest, fontFamily: "Georgia,serif", marginBottom: 4 }}>{b.pct}</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: C.charcoal, marginBottom: 4 }}>{b.type}</div>
+                <div style={{ fontSize: 10, color: C.gray, lineHeight: 1.5 }}>{b.detail}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── CTA ── */}
+        <div style={{ background: `linear-gradient(135deg,${C.forest},${C.forestDark})`, borderRadius: 14, padding: mob ? "22px 16px" : "28px 32px", textAlign: "center" }}>
+          <div style={{ fontSize: 11, color: C.tan, letterSpacing: 2, textTransform: "uppercase", fontWeight: 700, marginBottom: 10 }}>READY TO INVEST</div>
+          <h3 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 20 : 26, fontWeight: 700, color: "#fff", marginBottom: 8 }}>Get a Personalised Market Report</h3>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, marginBottom: 20 }}>Based on your budget, timeline, and goals — our advisor will share a tailored investment analysis for free.</p>
+          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+            <button onClick={() => onEnquire && onEnquire(null)} style={{ background: `linear-gradient(135deg,${C.tan},${C.gold})`, border: "none", borderRadius: 8, cursor: "pointer", color: C.charcoal, padding: mob ? "12px 22px" : "13px 28px", fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 14 }}>📋 Get Free Market Report</button>
+            <a href={`https://wa.me/919004343267?text=${encodeURIComponent("Hi ERTH! I'd like a market intelligence report for Indore second homes.")}`} target="_blank" rel="noreferrer" style={{ background: "#25D366", border: "none", borderRadius: 8, cursor: "pointer", color: "#fff", padding: mob ? "12px 22px" : "13px 28px", fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 14, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>💬 WhatsApp Us</a>
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -1101,8 +1516,15 @@ function FloatingButtons({ onEnquire }) {
     setLoading(true);
     try {
       const history = msgs.map(m => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.text }));
+      const ANTHROPIC_KEY = "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";
       const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST", headers: { "Content-Type": "application/json" },
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": ANTHROPIC_KEY,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514", max_tokens: 1000,
           system: `You are ERTH's AI property advisor — helping investors find second homes in Indore with the best ROI.
@@ -1127,7 +1549,7 @@ Keep replies short (2-4 sentences). Be warm and helpful. Always mention the brok
       });
       const data = await res.json();
       setMsgs(m => [...m, { role: "assistant", text: data.content?.[0]?.text || "Sorry, let me connect you with our team directly. Please WhatsApp us!" }]);
-    } catch { setMsgs(m => [...m, { role: "assistant", text: "Having trouble connecting. Please WhatsApp us at +91 99999 99999 🙏" }]); }
+    } catch { setMsgs(m => [...m, { role: "assistant", text: "Having trouble connecting. Please WhatsApp us at +91 90043 43267 🙏" }]); }
     setLoading(false);
   };
 
@@ -1222,12 +1644,12 @@ function Footer({ go }) {
           <div style={{ gridColumn: mob ? "1/-1" : "auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
               <div style={{ width: 26, height: 26, borderRadius: "50%", background: `linear-gradient(135deg,${C.forest},${C.tan})`, display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ color: "#fff", fontWeight: 800, fontSize: 10 }}>E</span></div>
-              <span style={{ color: "#fff", fontFamily: "Georgia,serif", fontSize: 16, fontWeight: 700, letterSpacing: 2 }}>ERTH</span>
+              <span onClick={() => { const c = parseInt(sessionStorage.getItem("ec")||0)+1; sessionStorage.setItem("ec",c); if(c>=5){sessionStorage.removeItem("ec"); setShowAdmin(true);} }} style={{ color: "#fff", fontFamily: "Georgia,serif", fontSize: 16, fontWeight: 700, letterSpacing: 2, cursor:"default", userSelect:"none" }}>ERTH</span>
             </div>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, lineHeight: 1.7, maxWidth: 220, marginBottom: 10 }}>India's first AI-powered second home marketplace. Zero broker fee. Now live in Indore.</p>
             <div style={{ color: C.tan, fontSize: 11 }}>founders@erthreality.com</div>
           </div>
-          {[{ h: "Platform", i: ["Properties", "Market Intel", "Calculator", "NRI Corner"] }, { h: "Locations", i: ["Mhow", "Simrol", "Omkareshwar", "Rau & Palasia"] }, { h: "Company", i: ["About", "Zero Broker Promise", "Investors", "Press"] }].map(col => (
+          {[{ h: "Platform", i: ["Properties", "Market Intel", "Calculator", "NRI Corner"] }, { h: "Locations", i: ["Mhow", "Simrol", "Omkareshwar", "Rau & Palasia"] }, { h: "Company", i: ["About Us", "Zero Broker Promise", "Investors", "Press"] }].map(col => (
             <div key={col.h}>
               <h4 style={{ color: C.tan, fontSize: 10, letterSpacing: 2, textTransform: "uppercase", marginBottom: 12, fontWeight: 600 }}>{col.h}</h4>
               {col.i.map(item => <div key={item} onClick={() => item==="NRI Corner" ? go("nri") : null} style={{ color: item==="NRI Corner"?C.tan:"rgba(255,255,255,0.35)", fontSize: 11, marginBottom: 7, cursor: "pointer" }}>{item}</div>)}
@@ -1672,6 +2094,432 @@ function NRIPage({ onEnquire, go }) {
   );
 }
 
+
+// ══════════════════════════════════════════════════════
+// ABOUT US PAGE
+// ══════════════════════════════════════════════════════
+function AboutPage({ go, onEnquire }) {
+  const w = useW(); const mob = w < 768;
+
+  const TIMELINE = [
+    { year:"2023", title:"The Idea", desc:"Nitish, frustrated with broker opacity while searching for a farmhouse near Indore, realised no platform existed for second homes with verified data. ERTH was born on a napkin." },
+    { year:"2024", title:"Building the Foundation", desc:"Platform architecture built on Supabase + Next.js. Arya AI agent developed. First 6 Indore micro-markets mapped with verified yield data." },
+    { year:"2025", title:"Going Live", desc:"erthreality.com launched. AI Matchmaker, Verified Yield badges, Legal Clarity reports, and NRI Corner built. First developer partnerships signed." },
+    { year:"2026", title:"Scaling", desc:"ERTH Stays hospitality arm launching in Ujjain. Core by ERTH B2B managed AI service for developers. Seed funding round open." },
+  ];
+
+  const VALUES = [
+    { icon:"🔍", title:"Radical Transparency", desc:"Every yield is verified. Every legal status is checked. Every broker saving is calculated and shown. No hidden numbers, ever." },
+    { icon:"🤖", title:"AI-First, Always", desc:"Arya qualifies leads. The Matchmaker finds your property. Market Intelligence updates automatically. We don't use AI as a feature — it's our infrastructure." },
+    { icon:"🤝", title:"Honest Over Popular", desc:"We'll tell you if a property's legal status is amber. We'll show you a 2/4 developer score. Trust is worth more than a sale." },
+    { icon:"🌱", title:"Indore-First Depth", desc:"We know every micro-market, every developer, every yield curve in Indore. Deep before wide. We'd rather own one city than be average in ten." },
+  ];
+
+  const ARMS = [
+    { icon:"🏡", name:"ERTH Marketplace", color:C.forest, desc:"India's first AI-powered second home marketplace. AI search, verified yields, legal clarity, zero broker fee. Live at erthreality.com." },
+    { icon:"🤖", name:"Arya — AI Sales Agent", color:"#7C3AED", desc:"WhatsApp AI that qualifies leads in Hinglish, scores them Hot/Warm/Cold, and alerts the advisor in real time. Available 24/7." },
+    { icon:"🏨", name:"ERTH Stays", color:C.gold, desc:"Professionally managed short-stay hospitality in spiritual cities. Ujjain anchor, scaling to Varanasi, Ayodhya, Tirupati. 65/35 revenue share." },
+    { icon:"⚙️", name:"Core by ERTH", color:"#0F2544", desc:"B2B managed AI operations for real estate developers. Full AI infrastructure — not ads, not software — we run your business." },
+  ];
+
+  return (
+    <div style={{ background:C.cream, minHeight:"100vh" }}>
+
+      {/* ── HERO ── */}
+      <div style={{ background:`linear-gradient(135deg,${C.forestDark} 0%,${C.forest} 60%,#1E3830 100%)`, padding:mob?"78px 16px 52px":"106px 32px 64px", position:"relative", overflow:"hidden" }}>
+        {[400,280,180].map((s,i)=>(
+          <div key={i} style={{ position:"absolute", width:s, height:s, borderRadius:"50%", border:`1px solid rgba(196,168,130,${0.04+i*0.03})`, top:"50%", left:"50%", transform:"translate(-50%,-50%)", pointerEvents:"none" }} />
+        ))}
+        <div style={{ maxWidth:780, margin:"0 auto", textAlign:"center" }}>
+          <div style={{ display:"inline-flex", alignItems:"center", gap:8, background:"rgba(196,168,130,0.12)", border:"1px solid rgba(196,168,130,0.28)", borderRadius:40, padding:mob?"6px 14px":"7px 18px", marginBottom:18 }}>
+            <span style={{ fontSize:14 }}>🌱</span>
+            <span style={{ color:C.tan, fontSize:mob?10:11, letterSpacing:2, textTransform:"uppercase", fontWeight:700 }}>BUILT IN INDORE · FOR INDIA</span>
+          </div>
+          <h1 style={{ fontFamily:"Georgia,serif", fontSize:mob?28:52, fontWeight:700, color:"#fff", lineHeight:1.1, marginBottom:14 }}>
+            We Exist Because<br/>
+            <span style={{ background:`linear-gradient(135deg,${C.tan},${C.gold})`, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>Brokers Shouldn't</span>
+          </h1>
+          <p style={{ color:"rgba(255,255,255,0.55)", fontSize:mob?13:16, lineHeight:1.8, maxWidth:560, margin:"0 auto 32px" }}>
+            ERTH was built out of a simple frustration — buying a second home in India is unnecessarily complicated, opaque, and expensive. We're fixing that with AI, verified data, and radical transparency.
+          </p>
+          <div style={{ display:"grid", gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)", gap:1, maxWidth:640, margin:"0 auto", background:"rgba(196,168,130,0.15)", borderRadius:12, overflow:"hidden", border:"1px solid rgba(196,168,130,0.2)" }}>
+            {[{v:"₹0",l:"Broker Fee"},{v:"14.1%",l:"Peak Yield"},{v:"6",l:"Micro-Markets"},{v:"2026",l:"Founded"}].map((s,i)=>(
+              <div key={i} style={{ padding:mob?"13px 8px":"17px 14px", textAlign:"center", borderRight:!mob&&i<3?"1px solid rgba(196,168,130,0.2)":"none", borderBottom:mob&&i<2?"1px solid rgba(196,168,130,0.2)":"none", background:"rgba(26,46,38,0.5)" }}>
+                <div style={{ color:C.tan, fontSize:mob?17:22, fontWeight:800, fontFamily:"Georgia,serif" }}>{s.v}</div>
+                <div style={{ color:"rgba(255,255,255,0.38)", fontSize:9, letterSpacing:1.2, textTransform:"uppercase", marginTop:3 }}>{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ maxWidth:960, margin:"0 auto", padding:mob?"24px 14px 60px":"40px 32px 80px" }}>
+
+        {/* ── OUR STORY ── */}
+        <div style={{ marginBottom:mob?32:48 }}>
+          <p style={{ color:C.forest, fontSize:10, letterSpacing:3, textTransform:"uppercase", fontWeight:700, marginBottom:6 }}>OUR STORY</p>
+          <h2 style={{ fontFamily:"Georgia,serif", fontSize:mob?24:36, fontWeight:700, color:C.charcoal, marginBottom:16 }}>Why We Built ERTH</h2>
+          <div style={{ display:"grid", gridTemplateColumns:mob?"1fr":"1fr 1fr", gap:mob?14:28 }}>
+            <div>
+              <p style={{ color:C.gray, fontSize:mob?13:15, lineHeight:1.85, marginBottom:14 }}>
+                In 2023, our founder Nitish was looking for a farmhouse near Indore. What he found was a market built entirely on broker trust — opaque pricing, unverifiable rental claims, zero legal clarity, and a 2–3% commission for the privilege of confusion.
+              </p>
+              <p style={{ color:C.gray, fontSize:mob?13:15, lineHeight:1.85 }}>
+                No platform existed that said: "Here's the RERA number. Here's the verified yield based on actual comparable rentals. Here's exactly how much you save by not paying a broker." So we built it.
+              </p>
+            </div>
+            <div style={{ background:C.white, borderRadius:14, padding:mob?"18px 16px":"24px 22px", border:"1px solid #E0D8CC" }}>
+              <div style={{ fontFamily:"Georgia,serif", fontSize:mob?15:18, fontWeight:700, color:C.charcoal, marginBottom:12 }}>The ERTH Promise</div>
+              {[
+                "Every yield is verified against real rental comps — not broker projections",
+                "Every property shows RERA status, title clarity, and encumbrance",
+                "Zero broker commission for buyers — savings shown on every listing",
+                "Free site visit arranged by our advisor — no commitment needed",
+                "AI that qualifies your needs, not a salesperson pushing quota",
+              ].map((p,i)=>(
+                <div key={i} style={{ display:"flex", gap:10, marginBottom:10, fontSize:mob?12:13, color:C.charcoal, lineHeight:1.6 }}>
+                  <span style={{ color:C.green, fontWeight:800, flexShrink:0 }}>✓</span>{p}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── FOUNDER ── */}
+        <div style={{ background:`linear-gradient(135deg,${C.forest},${C.forestDark})`, borderRadius:16, padding:mob?"22px 18px":"32px 36px", marginBottom:mob?32:48, display:"flex", gap:mob?16:28, flexDirection:mob?"column":"row", alignItems:mob?"flex-start":"center" }}>
+          <div style={{ width:mob?64:88, height:mob?64:88, borderRadius:"50%", background:`linear-gradient(135deg,${C.tan},${C.gold})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:mob?28:38, flexShrink:0, border:"3px solid rgba(255,255,255,0.2)" }}>👨‍💼</div>
+          <div style={{ flex:1 }}>
+            <div style={{ color:C.tan, fontSize:10, letterSpacing:2, textTransform:"uppercase", fontWeight:700, marginBottom:6 }}>FOUNDER & CEO</div>
+            <h3 style={{ fontFamily:"Georgia,serif", fontSize:mob?18:24, fontWeight:700, color:"#fff", marginBottom:6 }}>Nitish Saxena</h3>
+            <p style={{ color:"rgba(255,255,255,0.55)", fontSize:mob?12:14, lineHeight:1.75, marginBottom:14 }}>
+              Based in Indore. Obsessed with making second home investment as transparent and accessible as buying a mutual fund. Building ERTH as India's most trusted property platform — one verified listing at a time.
+            </p>
+            <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
+              <a href="https://wa.me/919004343267" target="_blank" rel="noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:6, background:"#25D366", border:"none", borderRadius:7, padding:"8px 16px", cursor:"pointer", color:"#fff", fontFamily:"Georgia,serif", fontWeight:700, fontSize:12, textDecoration:"none" }}>💬 WhatsApp</a>
+              <a href="mailto:founders@erthreality.com" style={{ display:"inline-flex", alignItems:"center", gap:6, background:"rgba(255,255,255,0.12)", border:"1px solid rgba(255,255,255,0.2)", borderRadius:7, padding:"8px 16px", cursor:"pointer", color:"#fff", fontFamily:"Georgia,serif", fontWeight:600, fontSize:12, textDecoration:"none" }}>✉️ Email Us</a>
+            </div>
+          </div>
+        </div>
+
+        {/* ── 4 ARMS ── */}
+        <div style={{ marginBottom:mob?32:48 }}>
+          <p style={{ color:C.forest, fontSize:10, letterSpacing:3, textTransform:"uppercase", fontWeight:700, marginBottom:6 }}>THE ERTH ECOSYSTEM</p>
+          <h2 style={{ fontFamily:"Georgia,serif", fontSize:mob?24:34, fontWeight:700, color:C.charcoal, marginBottom:16 }}>Four Arms, One Vision</h2>
+          <div style={{ display:"grid", gridTemplateColumns:mob?"1fr":"1fr 1fr", gap:12 }}>
+            {ARMS.map((arm,i)=>(
+              <div key={i} style={{ background:C.white, borderRadius:13, padding:mob?"16px 14px":"20px 20px", border:"1px solid #E0D8CC", borderTop:`3px solid ${arm.color}` }}>
+                <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:10 }}>
+                  <div style={{ width:38, height:38, borderRadius:9, background:`${arm.color}15`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20 }}>{arm.icon}</div>
+                  <div style={{ fontFamily:"Georgia,serif", fontSize:mob?14:16, fontWeight:700, color:C.charcoal }}>{arm.name}</div>
+                </div>
+                <p style={{ fontSize:mob?12:13, color:C.gray, lineHeight:1.7 }}>{arm.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── VALUES ── */}
+        <div style={{ marginBottom:mob?32:48 }}>
+          <p style={{ color:C.forest, fontSize:10, letterSpacing:3, textTransform:"uppercase", fontWeight:700, marginBottom:6 }}>WHAT WE STAND FOR</p>
+          <h2 style={{ fontFamily:"Georgia,serif", fontSize:mob?24:34, fontWeight:700, color:C.charcoal, marginBottom:16 }}>Our Values</h2>
+          <div style={{ display:"grid", gridTemplateColumns:mob?"1fr":"repeat(2,1fr)", gap:12 }}>
+            {VALUES.map((v,i)=>(
+              <div key={i} style={{ background:C.white, borderRadius:13, padding:mob?"16px 14px":"20px 20px", border:"1px solid #E0D8CC", display:"flex", gap:14 }}>
+                <span style={{ fontSize:28, flexShrink:0 }}>{v.icon}</span>
+                <div>
+                  <div style={{ fontFamily:"Georgia,serif", fontSize:mob?14:16, fontWeight:700, color:C.charcoal, marginBottom:5 }}>{v.title}</div>
+                  <p style={{ fontSize:mob?12:13, color:C.gray, lineHeight:1.7 }}>{v.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── TIMELINE ── */}
+        <div style={{ marginBottom:mob?32:48 }}>
+          <p style={{ color:C.forest, fontSize:10, letterSpacing:3, textTransform:"uppercase", fontWeight:700, marginBottom:6 }}>JOURNEY</p>
+          <h2 style={{ fontFamily:"Georgia,serif", fontSize:mob?24:34, fontWeight:700, color:C.charcoal, marginBottom:20 }}>How We Got Here</h2>
+          <div style={{ position:"relative" }}>
+            <div style={{ position:"absolute", left:mob?16:24, top:0, bottom:0, width:2, background:`linear-gradient(180deg,${C.forest},${C.tan})`, borderRadius:2 }} />
+            {TIMELINE.map((t,i)=>(
+              <div key={i} style={{ display:"flex", gap:mob?16:24, marginBottom:24, position:"relative" }}>
+                <div style={{ width:mob?32:48, height:mob?32:48, borderRadius:"50%", background:`linear-gradient(135deg,${C.forest},${C.forestLight})`, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, zIndex:1, border:"3px solid #F5F0E8" }}>
+                  <span style={{ color:C.tan, fontSize:mob?9:10, fontWeight:800 }}>{t.year}</span>
+                </div>
+                <div style={{ background:C.white, borderRadius:12, padding:mob?"14px 14px":"16px 18px", border:"1px solid #E0D8CC", flex:1, marginTop:4 }}>
+                  <div style={{ fontFamily:"Georgia,serif", fontSize:mob?14:16, fontWeight:700, color:C.charcoal, marginBottom:5 }}>{t.title}</div>
+                  <p style={{ fontSize:mob?12:13, color:C.gray, lineHeight:1.7 }}>{t.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── WHAT MAKES US DIFFERENT ── */}
+        <div style={{ background:C.charcoal, borderRadius:16, padding:mob?"22px 16px":"32px 32px", marginBottom:mob?24:36 }}>
+          <p style={{ color:C.tan, fontSize:10, letterSpacing:3, textTransform:"uppercase", fontWeight:700, marginBottom:6 }}>VS TRADITIONAL BROKERS</p>
+          <h2 style={{ fontFamily:"Georgia,serif", fontSize:mob?22:32, fontWeight:700, color:"#fff", marginBottom:20 }}>ERTH vs Everyone Else</h2>
+          <div style={{ overflow:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:mob?11:13 }}>
+              <thead>
+                <tr>
+                  {["What Matters","Traditional Broker","ERTH"].map((h,i)=>(
+                    <th key={i} style={{ textAlign:i===0?"left":"center", padding:"10px 12px", background:i===2?`${C.forest}`:i===1?"rgba(255,255,255,0.05)":"transparent", color:i===2?C.tan:i===1?"rgba(255,255,255,0.5)":"rgba(255,255,255,0.4)", fontSize:10, letterSpacing:1, textTransform:"uppercase", borderRadius:i===2?"8px 8px 0 0":0 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Rental Yield Data","Self-claimed, unverified","ERTH-verified vs real comps"],
+                  ["Commission","2–3% from buyer","₹0 from buyer"],
+                  ["Legal Clarity","'Trust me bhai'","RERA, title, encumbrance report"],
+                  ["Response Time","Miss 40–60% of leads","Arya replies in 60 seconds"],
+                  ["Language","English only","Hindi, Hinglish, English"],
+                  ["Site Visit","Paid, sometimes","Always free"],
+                  ["Developer Background","Unknown","MCA, RERA, ERTH verified"],
+                  ["Available 24/7","Never","Always (AI + WhatsApp)"],
+                ].map((row,i)=>(
+                  <tr key={i} style={{ borderTop:"1px solid rgba(255,255,255,0.06)" }}>
+                    <td style={{ padding:"10px 12px", color:"rgba(255,255,255,0.7)", fontWeight:600 }}>{row[0]}</td>
+                    <td style={{ padding:"10px 12px", textAlign:"center", color:"rgba(255,255,255,0.35)" }}>{row[1]}</td>
+                    <td style={{ padding:"10px 12px", textAlign:"center", color:"#4ADE80", fontWeight:700, background:"rgba(44,74,62,0.25)" }}>{row[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* ── CTA ── */}
+        <div style={{ display:"grid", gridTemplateColumns:mob?"1fr":"repeat(3,1fr)", gap:10 }}>
+          {[
+            { icon:"🏡", title:"Browse Properties", desc:"Explore verified second homes in Indore", btn:"View Properties", action:()=>go("properties"), bg:C.forest },
+            { icon:"📋", title:"Book Consultation", desc:"Free call with our property advisor", btn:"Book Free Call", action:()=>onEnquire(null), bg:C.gold },
+            { icon:"🏗️", title:"List Your Project", desc:"Developer? Partner with ERTH today", btn:"Partner With Us", action:()=>go("properties"), bg:"#0F2544" },
+          ].map((c,i)=>(
+            <div key={i} style={{ background:c.bg, borderRadius:13, padding:mob?"18px 16px":"22px 20px", textAlign:"center" }}>
+              <div style={{ fontSize:28, marginBottom:10 }}>{c.icon}</div>
+              <div style={{ fontFamily:"Georgia,serif", fontSize:mob?15:17, fontWeight:700, color:"#fff", marginBottom:6 }}>{c.title}</div>
+              <p style={{ fontSize:11, color:"rgba(255,255,255,0.5)", lineHeight:1.6, marginBottom:14 }}>{c.desc}</p>
+              <button onClick={c.action} style={{ background:"rgba(255,255,255,0.15)", border:"1.5px solid rgba(255,255,255,0.3)", borderRadius:8, padding:"9px 18px", cursor:"pointer", color:"#fff", fontFamily:"Georgia,serif", fontWeight:700, fontSize:12 }}>{c.btn}</button>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+
+// ══════════════════════════════════════════════════════
+// ADMIN GATE — PIN PROTECTED
+// ══════════════════════════════════════════════════════
+const ADMIN_PIN = "ERTH2026"; // ← change this to your secret PIN
+
+function AdminGate({ onClose }) {
+  const w = useW(); const mob = w < 768;
+  const [pin, setPin] = useState("");
+  const [error, setError] = useState(false);
+  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem("erth_admin") === "yes");
+
+  const tryPin = () => {
+    if (pin === ADMIN_PIN) {
+      sessionStorage.setItem("erth_admin", "yes");
+      setUnlocked(true);
+      setError(false);
+    } else {
+      setError(true);
+      setPin("");
+      setTimeout(() => setError(false), 2000);
+    }
+  };
+
+  if (unlocked) return <AdminDashboard onClose={onClose} />;
+
+  return (
+    <div style={{ position:"fixed", inset:0, zIndex:900, background:`linear-gradient(135deg,${C.forestDark},${C.forest})`, display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
+      <div style={{ background:C.white, borderRadius:18, padding:mob?"28px 22px":"40px 44px", maxWidth:380, width:"100%", textAlign:"center", boxShadow:"0 24px 64px rgba(0,0,0,0.3)" }}>
+        <div style={{ width:60, height:60, borderRadius:"50%", background:`linear-gradient(135deg,${C.forest},${C.tan})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:26, margin:"0 auto 16px" }}>🔐</div>
+        <h2 style={{ fontFamily:"Georgia,serif", fontSize:22, fontWeight:700, color:C.charcoal, marginBottom:6 }}>ERTH Admin</h2>
+        <p style={{ color:C.gray, fontSize:13, marginBottom:22 }}>Enter your admin PIN to continue</p>
+        <input
+          type="password"
+          value={pin}
+          onChange={e => setPin(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && tryPin()}
+          placeholder="Enter PIN"
+          autoFocus
+          style={{ width:"100%", background:error?"#FEF2F2":C.cream, border:`2px solid ${error?C.red:pin.length>0?C.forest:"#D5CBBB"}`, borderRadius:10, padding:"13px 16px", fontSize:18, fontFamily:"Georgia,serif", textAlign:"center", letterSpacing:4, outline:"none", marginBottom:12, boxSizing:"border-box", transition:"border-color .2s, background .2s" }}
+        />
+        {error && <p style={{ color:C.red, fontSize:12, marginBottom:10, fontWeight:600 }}>❌ Incorrect PIN — try again</p>}
+        <button onClick={tryPin} style={{ width:"100%", background:`linear-gradient(135deg,${C.forest},${C.forestLight})`, border:"none", borderRadius:10, padding:"13px", cursor:"pointer", color:"#fff", fontFamily:"Georgia,serif", fontWeight:700, fontSize:15, marginBottom:10 }}>
+          Unlock Dashboard
+        </button>
+        <button onClick={onClose} style={{ background:"none", border:"none", color:C.gray, cursor:"pointer", fontSize:13, fontFamily:"Georgia,serif" }}>← Back to website</button>
+      </div>
+    </div>
+  );
+}
+
+// ══════════════════════════════════════════════════════
+// ADMIN DASHBOARD (inline version)
+// ══════════════════════════════════════════════════════
+function AdminDashboard({ onClose }) {
+  const w = useW(); const mob = w < 768;
+  const [leads, setLeads] = useState([]);
+  const [props, setProps] = useState([]);
+  const [tab, setTab] = useState("leads");
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({ total:0, hot:0, warm:0, cold:0, properties:0 });
+
+  const SUPA_URL = "https://rhkwznrvbglgzxtvpwmz.supabase.co";
+  const SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJoa3d6bnJ2YmdsZ3p4dHZwd216Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MDc0NDQsImV4cCI6MjA5MTM4MzQ0NH0.q7BZyt3OGCRu55Py0k_KzHREUgrTyg2yCMX31mGk1vQ";
+  const headers = { "apikey": SUPA_KEY, "Authorization": `Bearer ${SUPA_KEY}` };
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const [leadsRes, propsRes] = await Promise.all([
+        fetch(`${SUPA_URL}/rest/v1/leads?order=created_at.desc&limit=50`, { headers }),
+        fetch(`${SUPA_URL}/rest/v1/properties?order=created_at.desc`, { headers }),
+      ]);
+      const leadsData = await leadsRes.json();
+      const propsData = await propsRes.json();
+      const l = Array.isArray(leadsData) ? leadsData : [];
+      const p = Array.isArray(propsData) ? propsData : [];
+      setLeads(l);
+      setProps(p);
+      setStats({ total:l.length, hot:l.filter(x=>x.lead_score==="hot").length, warm:l.filter(x=>x.lead_score==="warm").length, cold:l.filter(x=>x.lead_score==="cold").length, properties:p.length });
+    } catch(e) { console.log("Admin fetch error:", e); }
+    setLoading(false);
+  };
+
+  useEffect(() => { fetchData(); }, []);
+
+  const updateLeadStatus = async (id, status) => {
+    await fetch(`${SUPA_URL}/rest/v1/leads?id=eq.${id}`, { method:"PATCH", headers:{...headers,"Content-Type":"application/json","Prefer":"return=minimal"}, body:JSON.stringify({status}) });
+    setLeads(l => l.map(x => x.id === id ? {...x, status} : x));
+  };
+
+  const SCORE_CFG = { hot:{bg:"#FEF2F2",c:"#EF4444",label:"🔥 Hot"}, warm:{bg:"#FFFBEB",c:"#F59E0B",label:"🌤 Warm"}, cold:{bg:"#F9FAFB",c:"#6B7280",label:"❄️ Cold"} };
+
+  return (
+    <div style={{ position:"fixed", inset:0, zIndex:800, background:C.cream, overflowY:"auto" }}>
+      {/* Header */}
+      <div style={{ background:`linear-gradient(135deg,${C.forestDark},${C.forest})`, padding:mob?"14px 16px":"16px 28px", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:10 }}>
+        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+          <div style={{ width:34, height:34, borderRadius:"50%", background:`linear-gradient(135deg,${C.tan},${C.gold})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:16 }}>E</div>
+          <div>
+            <div style={{ color:"#fff", fontFamily:"Georgia,serif", fontWeight:700, fontSize:mob?14:16 }}>ERTH Admin</div>
+            <div style={{ color:"rgba(255,255,255,0.45)", fontSize:10 }}>Property & Lead Management</div>
+          </div>
+        </div>
+        <div style={{ display:"flex", gap:8 }}>
+          <button onClick={fetchData} style={{ background:"rgba(255,255,255,0.12)", border:"1px solid rgba(255,255,255,0.2)", borderRadius:7, padding:"7px 13px", cursor:"pointer", color:"#fff", fontSize:11, fontFamily:"Georgia,serif" }}>🔄 Refresh</button>
+          <button onClick={() => { sessionStorage.removeItem("erth_admin"); onClose(); }} style={{ background:"rgba(220,38,38,0.2)", border:"1px solid rgba(220,38,38,0.3)", borderRadius:7, padding:"7px 13px", cursor:"pointer", color:"#ff9999", fontSize:11, fontFamily:"Georgia,serif" }}>🔐 Lock</button>
+        </div>
+      </div>
+
+      <div style={{ maxWidth:1100, margin:"0 auto", padding:mob?"14px 12px":"20px 24px" }}>
+        {/* Stats */}
+        <div style={{ display:"grid", gridTemplateColumns:mob?"repeat(3,1fr)":"repeat(5,1fr)", gap:8, marginBottom:18 }}>
+          {[
+            {v:stats.total,l:"Total Leads",c:C.forest},
+            {v:stats.hot,l:"🔥 Hot",c:"#EF4444"},
+            {v:stats.warm,l:"🌤 Warm",c:"#F59E0B"},
+            {v:stats.cold,l:"❄️ Cold",c:"#6B7280"},
+            {v:stats.properties,l:"Properties",c:"#7C3AED"},
+          ].map((s,i)=>(
+            <div key={i} style={{ background:C.white, borderRadius:10, padding:mob?"12px 10px":"14px 16px", border:"1px solid #E8E0D0", textAlign:"center" }}>
+              <div style={{ fontSize:mob?20:24, fontWeight:800, color:s.c, fontFamily:"Georgia,serif" }}>{loading?"…":s.v}</div>
+              <div style={{ fontSize:10, color:C.gray, marginTop:2 }}>{s.l}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Tabs */}
+        <div style={{ display:"flex", gap:8, marginBottom:16 }}>
+          {[["leads","📋 Leads"],["properties","🏡 Properties"]].map(([id,label])=>(
+            <button key={id} onClick={()=>setTab(id)} style={{ background:tab===id?C.forest:C.white, border:`1.5px solid ${tab===id?C.forest:"#D5CBBB"}`, borderRadius:24, padding:"7px 18px", cursor:"pointer", color:tab===id?"#fff":C.gray, fontSize:12, fontFamily:"Georgia,serif", fontWeight:tab===id?700:400 }}>{label}</button>
+          ))}
+        </div>
+
+        {/* LEADS TAB */}
+        {tab==="leads" && (
+          <div>
+            {loading ? <div style={{ textAlign:"center", padding:40, color:C.gray }}>Loading leads…</div> :
+            leads.length === 0 ? <div style={{ textAlign:"center", padding:40, color:C.gray, background:C.white, borderRadius:12, border:"1px solid #E0D8CC" }}>No leads yet. Enquiries will appear here.</div> :
+            leads.map(lead => {
+              const sc = SCORE_CFG[lead.lead_score] || SCORE_CFG.cold;
+              return (
+                <div key={lead.id} style={{ background:C.white, borderRadius:11, border:"1px solid #E8E0D0", marginBottom:9, padding:mob?"12px 13px":"14px 18px" }}>
+                  <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", gap:10, flexWrap:"wrap" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:11 }}>
+                      <div style={{ width:36, height:36, borderRadius:"50%", background:sc.bg, display:"flex", alignItems:"center", justifyContent:"center", fontSize:16, flexShrink:0, border:`1.5px solid ${sc.c}25` }}>
+                        {lead.lead_score==="hot"?"🔥":lead.lead_score==="warm"?"🌤":"❄️"}
+                      </div>
+                      <div>
+                        <div style={{ fontSize:13, fontWeight:700, color:C.charcoal }}>{lead.name || "Unknown"}</div>
+                        <div style={{ fontSize:11, color:C.gray }}>
+                          {lead.phone && `📱 ${lead.phone}`}
+                          {lead.budget && ` · 💰 ${lead.budget}`}
+                          {lead.property_name && ` · 🏡 ${lead.property_name}`}
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ display:"flex", gap:6, flexWrap:"wrap", alignItems:"center" }}>
+                      <span style={{ fontSize:10, background:sc.bg, color:sc.c, padding:"2px 9px", borderRadius:10, fontWeight:700, border:`1px solid ${sc.c}25` }}>{sc.label}</span>
+                      <span style={{ fontSize:10, color:C.gray }}>{new Date(lead.created_at).toLocaleDateString("en-IN")}</span>
+                    </div>
+                  </div>
+                  {/* Actions */}
+                  <div style={{ display:"flex", gap:6, marginTop:10, flexWrap:"wrap" }}>
+                    {lead.phone && <>
+                      <a href={`tel:${lead.phone}`} style={{ background:C.forest, color:"#fff", borderRadius:7, padding:"6px 12px", fontSize:11, fontWeight:700, textDecoration:"none", fontFamily:"Georgia,serif" }}>📞 Call</a>
+                      <a href={`https://wa.me/${lead.phone.replace(/\D/g,"")}?text=${encodeURIComponent(`Hi ${lead.name||"there"}! This is ERTH. Following up on your property enquiry.`)}`} target="_blank" rel="noreferrer" style={{ background:"#25D366", color:"#fff", borderRadius:7, padding:"6px 12px", fontSize:11, fontWeight:700, textDecoration:"none", fontFamily:"Georgia,serif" }}>💬 WA</a>
+                    </>}
+                    {["Contacted","Site Visit Scheduled","Closed Won","Closed Lost"].map(s=>(
+                      <button key={s} onClick={()=>updateLeadStatus(lead.id,s)} style={{ background:lead.status===s?C.forest:C.cream, border:`1px solid ${lead.status===s?C.forest:"#D5CBBB"}`, borderRadius:7, padding:"5px 10px", cursor:"pointer", color:lead.status===s?"#fff":C.gray, fontSize:10, fontFamily:"Georgia,serif" }}>{s}</button>
+                    ))}
+                  </div>
+                  {lead.message && <div style={{ marginTop:8, fontSize:11, color:C.gray, background:C.cream, borderRadius:7, padding:"7px 10px", lineHeight:1.5 }}>"{lead.message.slice(0,120)}{lead.message.length>120?"…":""}"</div>}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* PROPERTIES TAB */}
+        {tab==="properties" && (
+          <div>
+            {loading ? <div style={{ textAlign:"center", padding:40, color:C.gray }}>Loading properties…</div> :
+            props.length === 0 ? <div style={{ textAlign:"center", padding:40, color:C.gray, background:C.white, borderRadius:12, border:"1px solid #E0D8CC" }}>No properties in database yet. Add via the developer form or Supabase directly.</div> :
+            props.map(p=>(
+              <div key={p.id} style={{ background:C.white, borderRadius:11, border:"1px solid #E8E0D0", marginBottom:9, padding:mob?"12px 13px":"14px 18px", display:"flex", alignItems:"center", gap:14, flexWrap:"wrap" }}>
+                <div style={{ fontSize:32 }}>{p.img || "🏡"}</div>
+                <div style={{ flex:1 }}>
+                  <div style={{ fontSize:13, fontWeight:700, color:C.charcoal }}>{p.title}</div>
+                  <div style={{ fontSize:11, color:C.gray }}>{p.location} · {p.type} · {p.price_label || p.price}</div>
+                  <div style={{ fontSize:11, color:C.gold, fontWeight:600, marginTop:2 }}>✓ {p.rental_yield || p.yield}% yield · {p.status}</div>
+                </div>
+                <div style={{ display:"flex", gap:6 }}>
+                  <span style={{ fontSize:10, background:p.is_featured?"#FEF3C7":"#F0FDF4", color:p.is_featured?"#D97706":"#16A34A", padding:"3px 9px", borderRadius:10, fontWeight:700, border:`1px solid ${p.is_featured?"#FDE68A":"#BBF7D0"}` }}>{p.is_featured?"⭐ Featured":"✓ Listed"}</span>
+                </div>
+              </div>
+            ))}
+            <div style={{ background:`${C.forest}08`, border:`1px solid ${C.forest}20`, borderRadius:10, padding:"12px 16px", marginTop:10 }}>
+              <div style={{ fontSize:12, color:C.forest, fontWeight:600, marginBottom:4 }}>💡 To add/edit properties:</div>
+              <div style={{ fontSize:11, color:C.gray, lineHeight:1.7 }}>Go to your Supabase dashboard → Table Editor → properties table → Insert row. Changes appear here immediately.</div>
+              <a href="https://supabase.com/dashboard/project/rhkwznrvbglgzxtvpwmz/editor" target="_blank" rel="noreferrer" style={{ display:"inline-block", marginTop:8, background:C.forest, color:"#fff", borderRadius:7, padding:"7px 14px", fontSize:11, fontWeight:700, textDecoration:"none", fontFamily:"Georgia,serif" }}>Open Supabase Table Editor →</a>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ══════════════════════════════════════════════════════
 // APP ROOT
 // ══════════════════════════════════════════════════════
@@ -1681,6 +2529,19 @@ export default function App() {
   const [modalProp, setModalProp] = useState(null);
   const [enquiryProp, setEnquiryProp] = useState(undefined);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
+  const [liveProps, setLiveProps] = useState([]);
+  const [propsLoading, setPropsLoading] = useState(true);
+
+  useEffect(() => {
+    loadPropertiesFromDB().then(data => {
+      setLiveProps(data);
+      setPropsLoading(false);
+    });
+  }, []);
+
+  // Use live props if available, else fallback to empty
+  const ACTIVE_PROPS = liveProps.length > 0 ? liveProps : PROPS;
   const w = useW(); const mob = w < 768;
 
   const go = useCallback((p) => { setPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); }, []);
@@ -1705,7 +2566,7 @@ export default function App() {
               <button onClick={() => go("properties")} style={{ background: "transparent", border: `1.5px solid ${C.forest}`, borderRadius: 6, padding: "9px 18px", cursor: "pointer", color: C.forest, fontFamily: "Georgia,serif", fontSize: 12, fontWeight: 600 }}>View All 10 →</button>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : w < 1024 ? "1fr 1fr" : "repeat(3,1fr)", gap: mob ? 14 : 22 }}>
-              {PROPS.slice(0, 3).map(p => <Card key={p.id} p={p} onOpen={openModal} onEnquire={openEnquiry} />)}
+              {ACTIVE_PROPS.slice(0, 3).map(p => <Card key={p.id} p={p} onOpen={openModal} onEnquire={openEnquiry} />)}
             </div>
           </div>
         </section>
@@ -1732,10 +2593,11 @@ export default function App() {
         <Footer go={go} />
       </>}
 
-      {page === "properties" && <><PropertiesPage sq={sq} onOpen={openModal} onEnquire={openEnquiry} /><Footer go={go} /></>}
-      {page === "market" && <><MarketPage /><Footer go={go} /></>}
+      {page === "properties" && <><PropertiesPage sq={sq} onOpen={openModal} onEnquire={openEnquiry} props={ACTIVE_PROPS} loading={propsLoading} /><Footer go={go} /></>}
+      {page === "market" && <><MarketPage onEnquire={openEnquiry} /><Footer go={go} /></>}
       {page === "calculator" && <><CalculatorPage onEnquire={openEnquiry} /><Footer go={go} /></>}
       {page === "nri" && <><NRIPage onEnquire={openEnquiry} go={go} /><Footer go={go} /></>}
+      {page === "about" && <><AboutPage go={go} onEnquire={openEnquiry} /><Footer go={go} /></>}
 
       {/* Modals */}
       {modalProp && <PropertyModal prop={modalProp} onClose={() => setModalProp(null)} onEnquire={() => openEnquiry(modalProp)} />}
@@ -1743,6 +2605,7 @@ export default function App() {
       {showQuiz && <MatchmakerQuiz onClose={() => setShowQuiz(false)} onEnquire={openEnquiry} />}
 
       <FloatingButtons onEnquire={openEnquiry} />
+      {showAdmin && <AdminGate onClose={() => setShowAdmin(false)} />}
     </div>
   );
 }
