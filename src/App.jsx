@@ -38,8 +38,8 @@ const PROPS = [
 async function loadPropertiesFromDB() {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/properties?order=is_featured.desc,created_at.asc`,
-      { headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` } }
+      `${SUPABASE_URL}/rest/v1/properties?order=is_featured.desc,created_at.asc&select=*`,
+      { headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}`, "Prefer": "return=representation" } }
     );
     const data = await res.json();
     if (Array.isArray(data) && data.length > 0) {
@@ -55,7 +55,7 @@ async function loadPropertiesFromDB() {
         tag:          p.tag || "Listed",
         tagColor:     p.tag_color || "#2C4A3E",
         amenities:    Array.isArray(p.amenities) ? p.amenities : [],
-        img:          p.img || "🏡",
+        img:          p.emoji || p.img || "🏡",
         status:       p.status || "Ready",
         beds:         p.beds || null,
         baths:        p.baths || null,
@@ -1638,7 +1638,7 @@ function Footer({ go, onAdmin }) {
           <div style={{ gridColumn: mob ? "1/-1" : "auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
               <div style={{ width: 26, height: 26, borderRadius: "50%", background: `linear-gradient(135deg,${C.forest},${C.tan})`, display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ color: "#fff", fontWeight: 800, fontSize: 10 }}>E</span></div>
-              <span onClick={() => { const c = parseInt(sessionStorage.getItem("ec")||0)+1; sessionStorage.setItem("ec",c); if(c>=5){sessionStorage.removeItem("ec"); if(onAdmin) onAdmin();} }} style={{ color: "#fff", fontFamily: "Georgia,serif", fontSize: 16, fontWeight: 700, letterSpacing: 2, cursor:"default", userSelect:"none" }}>ERTH</span>
+              <span onClick={() => { const c = parseInt(sessionStorage.getItem("ec")||0)+1; sessionStorage.setItem("ec",c); if(c>=5){sessionStorage.removeItem("ec"); window.open("/erth-admin-pro.html","_blank");} }} style={{ color: "#fff", fontFamily: "Georgia,serif", fontSize: 16, fontWeight: 700, letterSpacing: 2, cursor:"default", userSelect:"none" }}>ERTH</span>
             </div>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, lineHeight: 1.7, maxWidth: 220, marginBottom: 10 }}>India's first AI-powered second home marketplace. Zero broker fee. Now live in Indore.</p>
             <div style={{ color: C.tan, fontSize: 11 }}>founders@erthreality.com</div>
@@ -2556,7 +2556,7 @@ export default function App() {
   // Admin keyboard shortcut: Ctrl+Shift+A
   useEffect(() => {
     const handler = (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'A') setShowAdmin(true);
+      if (e.ctrlKey && e.shiftKey && e.key === 'A') window.open('/erth-admin-pro.html','_blank');
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
