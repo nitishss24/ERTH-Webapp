@@ -274,6 +274,7 @@ function LegalBadge({ legal, small }) {
         </div>
       )}
     </div>
+    </ErrorBoundary>
   );
 }
 
@@ -1047,7 +1048,7 @@ function Hero({ go, setSQ, onEnquire, onMatchmaker }) {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: mob ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: 1, width: "100%", maxWidth: 700, background: "rgba(196,168,130,0.15)", borderRadius: 12, overflow: "hidden", border: "1px solid rgba(196,168,130,0.2)" }}>
-        {[{ v: "₹0", l: "Broker Fee" }, { v: "14.1%", l: "Peak Yield" }, { v: (ACTIVE_PROPS.length || 7)+"+", l: "Live Projects" }, { v: "Free", l: "Site Visit" }].map((s, i) => (
+        {[{ v: "₹0", l: "Broker Fee" }, { v: "14.1%", l: "Peak Yield" }, { v: "9+", l: "Live Projects" }, { v: "Free", l: "Site Visit" }].map((s, i) => (
           <div key={i} style={{ padding: mob ? "14px 8px" : "18px 16px", textAlign: "center", borderRight: !mob && i < 3 ? "1px solid rgba(196,168,130,0.2)" : "none", borderBottom: mob && i < 2 ? "1px solid rgba(196,168,130,0.2)" : "none", background: "rgba(28,42,35,0.5)" }}>
             <div style={{ color: s.l === "Broker Fee" ? "#FF6B6B" : C.tan, fontSize: mob ? 17 : 21, fontWeight: 700, fontFamily: "Georgia,serif" }}>{s.v}</div>
             <div style={{ color: "rgba(245,240,232,0.45)", fontSize: 10, letterSpacing: 1.2, textTransform: "uppercase", marginTop: 3 }}>{s.l}</div>
@@ -1591,7 +1592,7 @@ Keep replies short (2-4 sentences). Be warm and helpful. Always mention the brok
       {/* WhatsApp */}
       <a href="https://wa.me/919004343267?text=Hi ERTH! I'm looking for a zero-broker-fee second home in Indore." target="_blank" rel="noreferrer" style={{ position: "fixed", bottom: mob ? 22 : 90, right: 24, zIndex: 398, width: 52, height: 52, borderRadius: "50%", background: "#25D366", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, textDecoration: "none", boxShadow: "0 8px 24px rgba(37,211,102,0.4)", transition: "all 0.3s" }}>💬</a>
       {/* AI Chat FAB */}
-      <button onClick={() => setChatOpen(o => !o)} style={{ position: "fixed", bottom: mob ? 82 : 24, right: 24, zIndex: 399, width: 52, height: 52, borderRadius: "50%", background: chatOpen ? C.charcoal : `linear-gradient(135deg,${C.forest},${C.forestLight})`, border: "none", cursor: "pointer", boxShadow: "0 8px 24px rgba(44,74,62,0.4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, transition: "all 0.3s", position: "fixed" }}>
+      <button onClick={() => setChatOpen(o => !o)} style={{ position: "fixed", bottom: mob ? 82 : 24, right: 24, zIndex: 399, width: 52, height: 52, borderRadius: "50%", background: chatOpen ? C.charcoal : `linear-gradient(135deg,${C.forest},${C.forestLight})`, border: "none", cursor: "pointer", boxShadow: "0 8px 24px rgba(44,74,62,0.4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, transition: "all 0.3s" }}>
         {chatOpen ? "×" : "🤖"}
         {pulse && !chatOpen && <div style={{ position: "absolute", top: -2, right: -2, width: 14, height: 14, borderRadius: "50%", background: "#FF4444", border: "2px solid #fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 8, color: "#fff", fontWeight: 700 }}>1</div>}
       </button>
@@ -2523,6 +2524,24 @@ function AdminDashboard({ onClose }) {
 // ══════════════════════════════════════════════════════
 // APP ROOT
 // ══════════════════════════════════════════════════════
+class ErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { hasError: false, error: null }; }
+  static getDerivedStateFromError(error) { return { hasError: true, error }; }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", background:"#F5F0E8", flexDirection:"column", gap:16, padding:24, textAlign:"center" }}>
+          <div style={{ fontSize:48 }}>🏡</div>
+          <h2 style={{ fontFamily:"Georgia,serif", color:"#2C4A3E", fontSize:24 }}>Something went wrong</h2>
+          <pre style={{ fontSize:10, color:"#999", maxWidth:500, overflow:"auto", textAlign:"left", background:"#fff", padding:12, borderRadius:8 }}>{String(this.state.error)}</pre>
+          <button onClick={() => window.location.reload()} style={{ background:"#2C4A3E", color:"#fff", border:"none", borderRadius:8, padding:"10px 24px", cursor:"pointer", fontFamily:"Georgia,serif", fontWeight:700 }}>Refresh Page</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export default function App() {
   const [page, setPage] = useState("home");
   const [sq, setSQ] = useState("");
@@ -2549,6 +2568,7 @@ export default function App() {
   const openEnquiry = (p) => { setModalProp(null); setEnquiryProp(p === undefined ? null : p); };
 
   return (
+    <ErrorBoundary>
     <div style={{ fontFamily: "Georgia,serif", overflowX: "hidden", background: C.cream }}>
       <Nav page={page} go={go} onEnquire={openEnquiry} />
       <TrustBar />
