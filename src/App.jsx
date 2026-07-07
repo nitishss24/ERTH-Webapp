@@ -1516,15 +1516,9 @@ function FloatingButtons({ onEnquire }) {
     setLoading(true);
     try {
       const history = msgs.map(m => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.text }));
-      const ANTHROPIC_KEY = import.meta.env.VITE_ANTHROPIC_KEY || "";
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": ANTHROPIC_KEY,
-          "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-access": "true",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514", max_tokens: 1000,
           system: `You are ERTH's AI property advisor — helping investors find second homes in Indore with the best ROI.
