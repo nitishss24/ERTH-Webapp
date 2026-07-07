@@ -910,8 +910,8 @@ function Nav({ page, go, onEnquire }) {
         {/* Desktop nav */}
         {!mob && (
           <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
-            {["Properties", "Market Intelligence", "Calculator", "NRI", "About"].map(l => (
-              <button key={l} onClick={() => nav(l === "Market Intelligence" ? "market" : l === "About" ? "about" : l.toLowerCase())} style={{
+            {["Properties", "Market Intelligence", "NRI", "About"].map(l => (
+              <button key={l} onClick={() => nav(l === "Market Intelligence" ? "market" : l === "NRI" ? "nri" : l === "About" ? "about" : l.toLowerCase())} style={{
                 background: "none", border: "none", cursor: "pointer",
                 color: page === l.toLowerCase() ? C.tan : "rgba(255,255,255,0.65)",
                 fontFamily: "Georgia,serif", fontSize: 13, letterSpacing: 1.5,
@@ -960,8 +960,8 @@ function Nav({ page, go, onEnquire }) {
               </div>
             ))}
           </div>
-          {["Properties", "Market Intelligence", "Calculator", "NRI", "About"].map(l => (
-            <button key={l} onClick={() => nav(l === "Market Intelligence" ? "market" : l === "About" ? "about" : l.toLowerCase())} style={{
+          {["Properties", "Market Intelligence", "NRI", "About"].map(l => (
+            <button key={l} onClick={() => nav(l === "Market Intelligence" ? "market" : l === "NRI" ? "nri" : l === "About" ? "about" : l.toLowerCase())} style={{
               display: "block", width: "100%", background: "none", border: "none",
               borderBottom: "1px solid rgba(196,168,130,0.08)",
               cursor: "pointer", color: page===l.toLowerCase() ? C.tan : "rgba(255,255,255,0.8)",
@@ -1629,7 +1629,7 @@ function Features() {
   );
 }
 
-function Footer({ go }) {
+function Footer({ go, onAdmin }) {
   const w = useW(); const mob = w < 768;
   return (
     <footer style={{ background: C.forestDark, padding: mob ? "36px 16px 22px" : "52px 48px 22px", borderTop: "1px solid rgba(196,168,130,0.15)" }}>
@@ -1638,20 +1638,28 @@ function Footer({ go }) {
           <div style={{ gridColumn: mob ? "1/-1" : "auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
               <div style={{ width: 26, height: 26, borderRadius: "50%", background: `linear-gradient(135deg,${C.forest},${C.tan})`, display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ color: "#fff", fontWeight: 800, fontSize: 10 }}>E</span></div>
-              <span onClick={() => { const c = parseInt(sessionStorage.getItem("ec")||0)+1; sessionStorage.setItem("ec",c); if(c>=5){sessionStorage.removeItem("ec"); setShowAdmin(true);} }} style={{ color: "#fff", fontFamily: "Georgia,serif", fontSize: 16, fontWeight: 700, letterSpacing: 2, cursor:"default", userSelect:"none" }}>ERTH</span>
+              <span onClick={() => { const c = parseInt(sessionStorage.getItem("ec")||0)+1; sessionStorage.setItem("ec",c); if(c>=5){sessionStorage.removeItem("ec"); if(onAdmin) onAdmin();} }} style={{ color: "#fff", fontFamily: "Georgia,serif", fontSize: 16, fontWeight: 700, letterSpacing: 2, cursor:"default", userSelect:"none" }}>ERTH</span>
             </div>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, lineHeight: 1.7, maxWidth: 220, marginBottom: 10 }}>India's first AI-powered second home marketplace. Zero broker fee. Now live in Indore.</p>
             <div style={{ color: C.tan, fontSize: 11 }}>founders@erthreality.com</div>
           </div>
-          {[{ h: "Platform", i: ["Properties", "Market Intel", "Calculator", "NRI Corner"] }, { h: "Locations", i: ["Mhow", "Simrol", "Omkareshwar", "Rau & Palasia"] }, { h: "Company", i: ["About Us", "Zero Broker Promise", "Investors", "Press"] }].map(col => (
+          {[{ h: "Platform", i: ["Properties", "Market Intel", "NRI Corner", "About Us"] }, { h: "Locations", i: ["Mhow", "Simrol", "Omkareshwar", "Rau & Palasia"] }, { h: "Company", i: ["About Us", "Zero Broker Promise", "Investors", "Press"] }].map(col => (
             <div key={col.h}>
               <h4 style={{ color: C.tan, fontSize: 10, letterSpacing: 2, textTransform: "uppercase", marginBottom: 12, fontWeight: 600 }}>{col.h}</h4>
-              {col.i.map(item => <div key={item} onClick={() => item==="NRI Corner" ? go("nri") : null} style={{ color: item==="NRI Corner"?C.tan:"rgba(255,255,255,0.35)", fontSize: 11, marginBottom: 7, cursor: "pointer" }}>{item}</div>)}
+              {col.i.map(item => {
+              const dest = item==="Properties"?"properties":item==="Market Intel"?"market":item==="NRI Corner"?"nri":item==="About Us"?"about":item==="Mhow"||item==="Simrol"||item==="Omkareshwar"||item==="Rau & Palasia"?"properties":null;
+              return (
+                <div key={item} onClick={() => dest && go(dest)} style={{ color: dest?C.tan:"rgba(255,255,255,0.35)", fontSize: 11, marginBottom: 7, cursor: dest?"pointer":"default", transition:"color .2s" }}
+                  onMouseEnter={e => { if(dest) e.target.style.color="#fff"; }}
+                  onMouseLeave={e => { if(dest) e.target.style.color=C.tan; }}
+                >{item}</div>
+              );
+            })}
             </div>
           ))}
         </div>
         <div style={{ borderTop: "1px solid rgba(196,168,130,0.1)", paddingTop: 16, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 6 }}>
-          <span style={{ color: "rgba(255,255,255,0.22)", fontSize: 11 }}>© 2025 ERTH Reality · erthreality.com · Zero Broker Fee</span>
+          <span style={{ color: "rgba(255,255,255,0.22)", fontSize: 11 }}>© 2026 ERTH Reality · erthreality.com · Zero Broker Fee</span>
           <span style={{ color: "rgba(255,255,255,0.22)", fontSize: 11 }}>www.erthreality.com</span>
         </div>
       </div>
@@ -2545,6 +2553,15 @@ export default function App() {
   const [liveProps, setLiveProps] = useState([]);
   const [propsLoading, setPropsLoading] = useState(true);
 
+  // Admin keyboard shortcut: Ctrl+Shift+A
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'A') setShowAdmin(true);
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
   useEffect(() => {
     loadPropertiesFromDB().then(data => {
       setLiveProps(data);
@@ -2602,14 +2619,13 @@ export default function App() {
             </div>
           </div>
         </section>
-        <Footer go={go} />
+        <Footer go={go} onAdmin={() => setShowAdmin(true)} />
       </>}
 
-      {page === "properties" && <><PropertiesPage sq={sq} onOpen={openModal} onEnquire={openEnquiry} props={ACTIVE_PROPS} loading={propsLoading} /><Footer go={go} /></>}
-      {page === "market" && <><MarketPage onEnquire={openEnquiry} /><Footer go={go} /></>}
-      {page === "calculator" && <><CalculatorPage onEnquire={openEnquiry} /><Footer go={go} /></>}
-      {page === "nri" && <><NRIPage onEnquire={openEnquiry} go={go} /><Footer go={go} /></>}
-      {page === "about" && <><AboutPage go={go} onEnquire={openEnquiry} /><Footer go={go} /></>}
+      {page === "properties" && <><PropertiesPage sq={sq} onOpen={openModal} onEnquire={openEnquiry} props={ACTIVE_PROPS} loading={propsLoading} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
+      {page === "market" && <><MarketPage onEnquire={openEnquiry} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
+      {page === "nri" && <><NRIPage onEnquire={openEnquiry} go={go} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
+      {page === "about" && <><AboutPage go={go} onEnquire={openEnquiry} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
 
       {/* Modals */}
       {modalProp && <PropertyModal prop={modalProp} onClose={() => setModalProp(null)} onEnquire={() => openEnquiry(modalProp)} />}
