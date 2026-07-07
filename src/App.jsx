@@ -1,3 +1,6 @@
+const LOGO_WHITE = "data:image/png;base64,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";
+const LOGO_TAN   = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA3AAAAGQCAYAAADvMYJ8AAAL+0lEQVR42u3dQXLbOBBAUculY/kgPo0XOo0OonspK1UlLpohTYDobrxXNbuZSQxAIL4hy29vAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAHBdDwFaP++1pFOr6+Py6WE/zjL/9Ca+jWuvIHmIOmcfVEADkOHR4uAMAAg4gceSJOgAQcAAkjTpBBwC1edBz6LBIHaMO/tZUzXm1hsi63rOtJ9+0MY8IOEi1MWbb8CI/UEaPZYSx6TEGkea86gEh2usqW0RU++CPVus8QwA49OefR3OIgMOB2ziKuOBfv29+1BnTnmOYKeCqz0vEAHDoN4fMzc/AcWjz8dal9pv4zGM6w5qKMt+vP9chwoHL3mYderaAgMOmSKOHs7GdZ76FnMOyvc1zDvsKbPFuCLARxR7b1z/W0xxzPerPf9xvT4fUOPNhfO1L9kdzCAIOHHg8aM3zppDzOnPAMt72RWMIAg7wACLJwXbW2zivLWNvfWANIeCwKVHucM88r61ZIs7ryTwACDhAOPvaShxsZ/tUUMyJMTGWIOCAsod75jh4VH1LpdeNubFmsHYQcNicMP6UnedKEef1Yo4ABBzgwIOIM36YKwABBzjwYJ6NmzkDQMCBAw/meaest3BeF9a6rx0QcECph360g7mDi4izlgD7AQg48JDCPE8YcVjnAAIOcOgBrwHMJVi3CDgA4h8Qot/COThZ69YUIOAABx7MMwAg4ACHe/IZeQu39mdb8/YzAAEHgIOtcSAwH64DCDjAoRbAfgYg4ACHHmrMcaRbD2scAAEHDk4AeOYACDjAoQdz7OsGAAEHwIl8eASiHaC/qyGAeQ89Dtw4vGMdAOTiBg74h6hzqAUABBzggA8AgIADAAAQcMAE3MIBAOThQ0wAEVd8bv1cIwDU4QYOgGbEIgAIOAAAAAQcAACAgAMAAEDAAQAACDgAAAAEHACj+DURACDgAAAAEHAAZOW2DwAEHAAAAAIOAABAwAEAACDgAAAABBwAAAACDoBRHvfb84w/xydQAoCAAwAAQMABAAAIOAAm4+2TACDgAAAAEHAAAAACDoBAzvgESm+fBAABBwAAgIADoBW3bwBwrqshgPy+v03OoZqldQEA5OcGDoBf8Y0CABBwwE5uWRBvACDgABD2AICAAyAzt28AIOCAX3DLwtnrQrwBgIADxBvWBQAg4ABoxe0bAAg44BfcsnD2uhBvACDgAPGGeAMABBw4pGNdiDcAqOdqCMAhHetCuAFADm7gQLxhXYg3AEjCDRwIN6wN8QYAAg4Qbgg3AEDAgcM51od4AwABB4g2hBsAIOAAsYZwAwAEHIgzrCXhBgACDkQTpF/Hwg0ABBwAAWNNtIE9AxBwAA5KCYg2ABBwAAg2AEDAASDYAAABhwNtEH52AbEGAAg4KHAIF3fsjX9RB54j9NtjQcABux7KHia1D0ot5vf7/8PBDgAEHDA4HoRc/ThsNceCDgAEHFDwoM8csf76/wk5AKjr3RBAjpij5vz2mOPH/fYU/wAg4IBCh3zqh7qQAwABBxQ75FN/fkUcAAg4QMSRLOKEHAAIOEDEkWh+RRwACDgARBwAIOCAEQd86hNxACDgABFHovkVcQAg4AAQcQCAgANGHPCpT8QBgIADIFGkizgAEHBAoQM+AAACDoAgke4WDgAEHFDogE99Ig4AYrsaAhBx5JhfcQUAuIED4B9CEQAEHAAHnXnLKuIAQMABAAAg4ADm4BYOAAQcAAAAAg6AzNzCAYCAA+AAvzICAAQcACxyCwcAAg6AA9zCAYCAA4BFbuEAQMABcIBbOAAQcACwyC0cAAg4AAAABBxAfd5GCQACDgAWeRslAAg4AA5wCwcAAg4AFrmFAwABBwAAgIADqO/st1G6hQMAAQcAAICAA6jPh5kAgIADgEXeRgkAAg4AAAABB1CfDzMBAAEHAACAgAOgNR9mAgACDgAWeRslAAg4AAAABBxAfT7MBAAEHAAAAAIOgNbcwgGAgAMAAEDAAdCaXykAAAIOABZ5GyUA9HU1BMCWg7ibHACA8dzAARTnw0wAQMABhTmAAwAIOAAG8RZYABBwALDILS4ACDjAwRsAQMABUJ8PMwEAAQcU4sANACDgAAjCh5kAgIADCnD7hnUFAAIOcMgmGLdwACDgAGCRbxAYLwAEHA4emDMAAAEHQH1+pQAACDggGYdqAAABB4g3EvBhJgCetwg4wMPEuGB8sY4BBBww6vDhpqYucwsAAg4AFrm9AK8ZQMABRQ8CDi7ncAtnXzAKWPMg4IBgDysPLByeAEDAAQ7LFOAWDgAEHEIBcwLWpnEBQMABDoLGrTW3cGB/wNpBwAEeFB52mGNzgfkxliDggKUHk4cTR7iFc7AEQMDh4OHAI9ysZxFnrLEvYA2BgAMPg4oPBA858LrD/BhDEHAU3RBn3JDduFlXvbmFs94wP1hLCDhsRDbEBtFW/Wv1cBNx9lF/F8yPsYOf+WF1Sm2GlT6AIdL4njWu1pS1ONt4Rz1UWvf2JXNoDhFw2AxtjMbTGHjNG2tr3vyYH/NoHhFw2AhjbpCV3q7Rc/wyjZMD7blzVXW8s+0NM657+5I5NIcIOGyGCLhC62nmh220eXPbbqzNj33JHDIbH2ICgAMGAAg4AKpGnJADAAEHgJADAFZ48ALQhA85AQABB8DkUSfUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFh1MQRABI/77bnn3//4/Lpk/vtH/Tq2fF0Z/87G+pz1HGmdr30NW/4+R/97gF7eDQGQNfhaHzLZdoA17sy69sUbIOAAOh60gHmthdbaviHeAAEHIOKMKQSLuJH/LwABB5Q+gL3+MRoCD3quYesayOBqCIBMMZfpgCU6yfxa2xvvUdf72r7xuN+er7+3t04CWbiBA0ocLH3nvJ2tY2nMqRCkPf9bAAEHQLoDMERewz7RFhBwAKTlIAv/jz6AkfwMHMDAGMp+QPz7Z4ggQ5Bt/SaFdQ1E5QYOKBFFDlt9D73GmGrrWbwBWbmBA1IGG3HG2i0cAJzHDRyQnngAWu0Z9hNAwAEQ3ta3pjrcAsBY3kIJpJU9JjL8/ff8TjhxBwACDiBt/AgaAKA1b6EEmFyrD4rxgTMAIOCAyf10iyUWAAABB5CIiIs3huYEAPryM3BAeB+fX5efwiDyh2dsiRk/JxdnPswFAAIOYPKIyzzeLQIVAGjLWygBJrX1d7/tjTxhBwACDmA1LEQDACDgAERcSb3HylwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABR/AGF1zpRSjNEdAAAAABJRU5ErkJggg==";
+
 import React, { useState, useEffect, useCallback, useRef } from "react";
 
 // ─── SUPABASE CONFIG ─────────────────────────────────────────────
@@ -38,10 +41,17 @@ const PROPS = [
 async function loadPropertiesFromDB() {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/properties?order=is_featured.desc,created_at.asc&select=*`,
-      { headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}`, "Prefer": "return=representation" } }
+      `${SUPABASE_URL}/rest/v1/properties?select=*&order=is_featured.desc,created_at.asc`,
+      { headers: { 
+          "apikey": SUPABASE_KEY, 
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+          "Accept": "application/json"
+        } 
+      }
     );
+    if (!res.ok) { console.error("Supabase error:", res.status, await res.text()); return []; }
     const data = await res.json();
+    console.log("Supabase returned:", data?.length, "properties");
     if (Array.isArray(data) && data.length > 0) {
       return data.map((p, i) => ({
         id:           p.id || i + 1,
@@ -56,6 +66,8 @@ async function loadPropertiesFromDB() {
         tagColor:     p.tag_color || "#2C4A3E",
         amenities:    Array.isArray(p.amenities) ? p.amenities : [],
         img:          p.emoji || p.img || "🏡",
+        image_url:    p.image_url || null,
+        image_url_2:  p.image_url_2 || null,
         status:       p.status || "Ready",
         beds:         p.beds || null,
         baths:        p.baths || null,
@@ -502,7 +514,10 @@ function MatchmakerQuiz({ onClose, onEnquire }) {
               {(matches.length > 0 ? matches : PROPS.slice(0, 3)).map((p, i) => (
                 <div key={p.id} onClick={() => setSelectedProp(selectedProp?.id === p.id ? null : p)} style={{ background: selectedProp?.id === p.id ? `${C.forest}08` : C.cream, border: `2px solid ${selectedProp?.id === p.id ? C.forest : "#E0D8CC"}`, borderRadius: 12, padding: "14px 16px", marginBottom: 10, cursor: "pointer", transition: "all 0.2s" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <div style={{ fontSize: 36, flexShrink: 0 }}>{p.img}</div>
+                    {p.image_url
+                ? <img src={p.image_url} alt={p.title} style={{ width:"100%", height:"100%", objectFit:"cover", borderRadius: mob?"10px 10px 0 0":"10px 0 0 10px", position:"absolute", inset:0 }} />
+                : <div style={{ display:"flex", alignItems:"center", justifyContent:"center", width:"100%", height:"100%", background:`linear-gradient(135deg,${C.forest},${C.forestLight})`, borderRadius: mob?"10px 10px 0 0":"10px 0 0 10px", fontSize:44, position:"absolute", inset:0 }}>{p.img}</div>
+              }
                     <div style={{ flex: 1 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
                         <span style={{ fontFamily: "Georgia,serif", fontSize: 14, fontWeight: 700, color: C.charcoal }}>{p.title}</span>
@@ -900,11 +915,8 @@ function Nav({ page, go, onEnquire }) {
         transition: "all 0.3s",
       }}>
         {/* Logo */}
-        <div onClick={() => nav("home")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 9, flexShrink: 0 }}>
-          <div style={{ width: 32, height: 32, borderRadius: "50%", background: `linear-gradient(135deg,${C.forest},${C.tan})`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            <span style={{ color: "#fff", fontWeight: 800, fontSize: 13, letterSpacing: 0 }}>E</span>
-          </div>
-          <span style={{ color: "#fff", fontFamily: "Georgia,serif", fontSize: mob ? 18 : 20, fontWeight: 700, letterSpacing: 2 }}>ERTH</span>
+        <div onClick={() => nav("home")} style={{ cursor: "pointer", display: "flex", alignItems: "center", flexShrink: 0 }}>
+          <img src={LOGO_WHITE} alt="ERTH Reality" style={{ height: mob ? 26 : 30, width: "auto", objectFit: "contain" }} />
         </div>
 
         {/* Desktop nav */}
@@ -1638,10 +1650,10 @@ function Footer({ go, onAdmin }) {
           <div style={{ gridColumn: mob ? "1/-1" : "auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
               <div style={{ width: 26, height: 26, borderRadius: "50%", background: `linear-gradient(135deg,${C.forest},${C.tan})`, display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ color: "#fff", fontWeight: 800, fontSize: 10 }}>E</span></div>
-              <span onClick={() => { const c = parseInt(sessionStorage.getItem("ec")||0)+1; sessionStorage.setItem("ec",c); if(c>=5){sessionStorage.removeItem("ec"); window.open("/erth-admin-pro.html","_blank");} }} style={{ color: "#fff", fontFamily: "Georgia,serif", fontSize: 16, fontWeight: 700, letterSpacing: 2, cursor:"default", userSelect:"none" }}>ERTH</span>
+              <img src={LOGO_WHITE} alt="ERTH Reality" onClick={() => { const c = parseInt(sessionStorage.getItem("ec")||0)+1; sessionStorage.setItem("ec",c); if(c>=5){sessionStorage.removeItem("ec"); window.open("/erth-admin-pro.html","_blank");} }} style={{ height: 20, width:"auto", objectFit:"contain", cursor:"default", userSelect:"none" }} />
             </div>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, lineHeight: 1.7, maxWidth: 220, marginBottom: 10 }}>India's first AI-powered second home marketplace. Zero broker fee. Now live in Indore.</p>
-            <div style={{ color: C.tan, fontSize: 11 }}>founders@erthreality.com</div>
+            <div style={{ color: C.tan, fontSize: 11 }}>sales@erthreality.com</div>
           </div>
           {[{ h: "Platform", i: ["Properties", "Market Intel", "NRI Corner", "About Us"] }, { h: "Locations", i: ["Mhow", "Simrol", "Omkareshwar", "Rau & Palasia"] }, { h: "Company", i: ["About Us", "Zero Broker Promise", "Investors", "Press"] }].map(col => (
             <div key={col.h}>
@@ -2198,7 +2210,7 @@ function AboutPage({ go, onEnquire }) {
             </p>
             <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
               <a href="https://wa.me/919004343267" target="_blank" rel="noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:6, background:"#25D366", border:"none", borderRadius:7, padding:"8px 16px", cursor:"pointer", color:"#fff", fontFamily:"Georgia,serif", fontWeight:700, fontSize:12, textDecoration:"none" }}>💬 WhatsApp</a>
-              <a href="mailto:founders@erthreality.com" style={{ display:"inline-flex", alignItems:"center", gap:6, background:"rgba(255,255,255,0.12)", border:"1px solid rgba(255,255,255,0.2)", borderRadius:7, padding:"8px 16px", cursor:"pointer", color:"#fff", fontFamily:"Georgia,serif", fontWeight:600, fontSize:12, textDecoration:"none" }}>✉️ Email Us</a>
+              <a href="mailto:sales@erthreality.com" style={{ display:"inline-flex", alignItems:"center", gap:6, background:"rgba(255,255,255,0.12)", border:"1px solid rgba(255,255,255,0.2)", borderRadius:7, padding:"8px 16px", cursor:"pointer", color:"#fff", fontFamily:"Georgia,serif", fontWeight:600, fontSize:12, textDecoration:"none" }}>✉️ Email Us</a>
             </div>
           </div>
         </div>
