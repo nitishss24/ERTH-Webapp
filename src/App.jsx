@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 
 // ─── SUPABASE CONFIG ─────────────────────────────────────────────
 const SUPABASE_URL = "https://rhkwznrvbglgzxtvpwmz.supabase.co";
@@ -1516,7 +1516,7 @@ function FloatingButtons({ onEnquire }) {
     setLoading(true);
     try {
       const history = msgs.map(m => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.text }));
-      const ANTHROPIC_KEY = "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";
+      const ANTHROPIC_KEY = import.meta.env.VITE_ANTHROPIC_KEY || "";
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: {
