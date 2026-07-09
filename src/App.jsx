@@ -1543,7 +1543,7 @@ function CalculatorPage({ onEnquire }) {
 function FloatingButtons({ onEnquire, liveProps }) {
   const w = useW(); const mob = w < 768;
   const [chatOpen, setChatOpen] = useState(false);
-  const [msgs, setMsgs] = useState([{ role: "assistant", text: "Hi! I'm ERTH's AI Advisor 👋\n\nI help investors find the best second homes in Indore — with verified yields and zero broker commission.\n\nWhat's your budget or preferred location?" }]);
+  const [msgs, setMsgs] = useState([{ role: "assistant", text: "Hi! I'm ERTH's AI Advisor 👋\n\nI help investors find the best second homes in Indore — with verified yields and zero broker commission.\n\nBefore we start, could I get your name and contact number? 🔒 Your information stays completely secure until you choose to speak with a property advisor.\n\nOnce done, ask me anything about properties, yields, or legal status!" }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [pulse, setPulse] = useState(true);
@@ -1610,7 +1610,12 @@ ${propsForAI || "Properties loading — direct them to browse erthreality.com/pr
 
 Keep replies short (2-4 sentences). Be warm and helpful, and respond in Hinglish if the user writes in Hindi/Hinglish. Always mention the broker fee saving for any property you recommend.
 
-IMPORTANT: If the user hasn't shared their phone number yet, naturally ask for it after 2-3 exchanges so our advisor can call them — e.g. "What's the best number to reach you on for a free consultation?" Once they share a name and phone number, thank them and let them know an ERTH advisor will call within 2 hours.`,
+IMPORTANT LEAD CAPTURE RULES:
+- The greeting message already asked the user for their name and contact number, with a reassurance that it stays secure until they opt to speak with an advisor.
+- If the user's very first reply does NOT include a name and phone number, politely repeat the ask before answering their question — e.g. "Happy to help! Could you first share your name and number so I can personalise this for you? 🔒 It stays private until you choose to talk to our advisor."
+- Do not be pushy about it more than twice — if they clearly want to browse first, let them, and ask again naturally after you've helped them once (e.g. "By the way, if you'd like our advisor to call you with more details, just share your name and number anytime — 100% secure until you say go.")
+- Once they DO share a name and phone number, thank them warmly, confirm an ERTH advisor will call within 2 hours, and continue helping them.
+- Never ask for their number a third time in the same conversation.`,
           messages: [...history, { role: "user", content: userMsg }],
         }),
       });
