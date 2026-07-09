@@ -15,6 +15,28 @@ async function saveToSupabase(table, data) {
     });
   } catch(e) { console.log("Supabase save:", e); }
 }
+
+// Sends an email alert to sales@erthreality.com for any new lead
+async function notifyLead(leadData) {
+  try {
+    await fetch("/api/notify-lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(leadData),
+    });
+  } catch(e) { console.log("Email notify error:", e); }
+}
+
+// Simple phone number detector for AI chat lead capture
+function extractPhone(text) {
+  const match = text.match(/(?:\+?91[\s-]?)?[6-9]\d{9}\b/);
+  return match ? match[0] : null;
+}
+function extractName(text) {
+  // crude heuristic: "I'm X" / "my name is X" / "this is X"
+  const m = text.match(/(?:i'?m|my name is|this is|i am)\s+([A-Z][a-zA-Z]+(?:\s[A-Z][a-zA-Z]+)?)/i);
+  return m ? m[1] : null;
+}
 // ─────────────────────────────────────────────────────────────────
 
 const C = {
@@ -780,16 +802,24 @@ function EnquiryModal({ prop, onClose }) {
   const [loading, setLoading] = useState(false);
   useEffect(() => { document.body.style.overflow = "hidden"; return () => { document.body.style.overflow = ""; }; }, []);
 
+  const [timeline, setTimeline] = useState("");
   const handleSubmit = () => {
     if (!form.name || !form.phone) return;
     setLoading(true);
-    // Save lead to Supabase
-    saveToSupabase("leads", {
+    const leadPayload = {
       name: form.name, phone: form.phone, email: form.email,
-      message: form.message, source: "Enquiry Form",
+      message: form.message, source: "Website Enquiry Form",
       property_name: prop ? prop.title : null,
+      budget: prop ? prop.price : null,
+      timeline: timeline || null,
       status: "New", lead_score: "warm",
-    }).then(() => { setLoading(false); setSubmitted(true); });
+    };
+    // Save to Supabase (shows in Admin → Lead CRM)
+    saveToSupabase("leads", leadPayload).then(() => {
+      setLoading(false); setSubmitted(true);
+      // Email alert to sales@erthreality.com
+      notifyLead(leadPayload);
+    });
   };
 
   return (
@@ -831,8 +861,8 @@ function EnquiryModal({ prop, onClose }) {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 16 }}>
               {["This week", "Next 3 months", "Just exploring", "Ready to invest"].map(t => (
-                <label key={t} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 12, color: C.gray, cursor: "pointer", background: C.cream, borderRadius: 8, padding: "9px 11px", border: "1px solid #E0D8CC" }}>
-                  <input type="radio" name="timeline" value={t} style={{ accentColor: C.forest }} /> {t}
+                <label key={t} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 12, color: C.gray, cursor: "pointer", background: timeline===t?`${C.forest}12`:C.cream, borderRadius: 8, padding: "9px 11px", border: `1px solid ${timeline===t?C.forest:"#E0D8CC"}` }}>
+                  <input type="radio" name="timeline" value={t} checked={timeline===t} onChange={()=>setTimeline(t)} style={{ accentColor: C.forest }} /> {t}
                 </label>
               ))}
             </div>
@@ -1510,30 +1540,64 @@ function CalculatorPage({ onEnquire }) {
 // ══════════════════════════════════════════════════════
 // AI CHAT + WHATSAPP FLOATING BUTTONS
 // ══════════════════════════════════════════════════════
-function FloatingButtons({ onEnquire }) {
+function FloatingButtons({ onEnquire, liveProps }) {
   const w = useW(); const mob = w < 768;
   const [chatOpen, setChatOpen] = useState(false);
-  const [msgs, setMsgs] = useState([{ role: "assistant", text: "Hi! I'm ERTH's AI advisor 👋\n\nI help investors find the best second homes in Indore — with verified yields and zero broker commission.\n\nWhat's your budget or preferred location?" }]);
+  const [msgs, setMsgs] = useState([{ role: "assistant", text: "Hi! I'm ERTH's AI Advisor 👋\n\nI help investors find the best second homes in Indore — with verified yields and zero broker commission.\n\nWhat's your budget or preferred location?" }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [pulse, setPulse] = useState(true);
+  const [leadCaptured, setLeadCaptured] = useState(false);
+  const [chatLead, setChatLead] = useState({ name:null, phone:null });
+  const [chatSessionId] = useState(() => "chat_" + Date.now() + "_" + Math.random().toString(36).slice(2,8));
   const endRef = useRef(null);
   useEffect(() => { if (chatOpen) endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs, chatOpen]);
   useEffect(() => { const t = setTimeout(() => setPulse(false), 5000); return () => clearTimeout(t); }, []);
 
+  // Build a live property summary for the AI system prompt from real Supabase data
+  const propsForAI = (liveProps && liveProps.length > 0 ? liveProps : []).slice(0, 20).map((p,i) =>
+    `${i+1}. ${p.title} — ${p.location} — ${p.price}${p.yield ? ` — ${p.yield}% verified yield` : ""} — ${p.status}`
+  ).join("\n");
+
+  // Save/update the chat lead in Supabase + fire email once we have name+phone
+  const captureLeadFromChat = async (name, phone, transcript) => {
+    if (leadCaptured) return; // only notify once per session
+    const leadPayload = {
+      name: name || "WhatsApp Chat Lead",
+      phone: phone,
+      message: transcript.slice(-500),
+      source: "Website AI Chat",
+      status: "New",
+      lead_score: "hot", // anyone who shares a phone number in chat is a hot lead
+    };
+    setLeadCaptured(true);
+    await saveToSupabase("leads", leadPayload);
+    await notifyLead(leadPayload);
+  };
+
   const send = async () => {
     if (!input.trim() || loading) return;
     const userMsg = input.trim(); setInput("");
-    setMsgs(m => [...m, { role: "user", text: userMsg }]);
+    const newMsgs = [...msgs, { role: "user", text: userMsg }];
+    setMsgs(newMsgs);
     setLoading(true);
+
+    // ── LEAD CAPTURE: detect phone number anywhere in the message ──
+    const phone = extractPhone(userMsg);
+    const name = extractName(userMsg) || chatLead.name;
+    if (phone && !chatLead.phone) {
+      setChatLead({ name, phone });
+      const transcript = newMsgs.map(m => `${m.role}: ${m.text}`).join("\n");
+      captureLeadFromChat(name, phone, transcript);
+    }
+
     try {
       const history = msgs.map(m => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.text }));
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514", max_tokens: 1000,
-          system: `You are ERTH's AI property advisor — helping investors find second homes in Indore with the best ROI.
+          system: `You are ERTH's AI property advisor (website chat assistant) — helping investors find second homes in Indore with the best ROI.
 
 ERTH's key differentiators:
 - ZERO broker commission (saves buyers ₹1.5L–5L per deal)
@@ -1541,20 +1605,27 @@ ERTH's key differentiators:
 - Legal clarity on every property (RERA, title, encumbrance)
 - Free site visits arranged by our team
 
-Current Indore portfolio:
-1. Mhow Valley Estate — 4BHK Villa, ₹1.8Cr, 13.8% verified yield, Ready, save ₹3.6L broker fee
-2. Omkareshwar Retreat — 3BHK, ₹95L, 12.5% yield, River View, Ready, save ₹1.9L
-3. Palasia Heights — 4BHK Penthouse, ₹2.4Cr, 13.2% yield, City View, Ready, save ₹4.8L
-4. Simrol Farmhouse — 3BHK, ₹1.2Cr, 14.1% yield (highest), 1 acre land, Ready, save ₹2.4L
-5. Tigaria Dam Villa — 3BHK, ₹1.5Cr, 13.5% yield, Dam View, UC Q3 2025, save ₹3L
-6. Rau Township Cabin — 2BHK, ₹72L, 12.8% yield, Pre-Launch, save ₹1.44L
+Current live ERTH portfolio (real listings):
+${propsForAI || "Properties loading — direct them to browse erthreality.com/properties"}
 
-Keep replies short (2-4 sentences). Be warm and helpful. Always mention the broker fee saving for any property you recommend. Encourage them to submit an enquiry or book a free site visit.`,
+Keep replies short (2-4 sentences). Be warm and helpful, and respond in Hinglish if the user writes in Hindi/Hinglish. Always mention the broker fee saving for any property you recommend.
+
+IMPORTANT: If the user hasn't shared their phone number yet, naturally ask for it after 2-3 exchanges so our advisor can call them — e.g. "What's the best number to reach you on for a free consultation?" Once they share a name and phone number, thank them and let them know an ERTH advisor will call within 2 hours.`,
           messages: [...history, { role: "user", content: userMsg }],
         }),
       });
       const data = await res.json();
-      setMsgs(m => [...m, { role: "assistant", text: data.content?.[0]?.text || "Sorry, let me connect you with our team directly. Please WhatsApp us!" }]);
+      const replyText = data.content?.[0]?.text || "Sorry, let me connect you with our team directly. Please WhatsApp us!";
+      setMsgs(m => [...m, { role: "assistant", text: replyText }]);
+
+      // Save every conversation turn to chat_sessions for admin visibility (best-effort)
+      saveToSupabase("chat_sessions", {
+        session_id: chatSessionId,
+        last_message: userMsg,
+        last_reply: replyText,
+        lead_name: chatLead.name,
+        lead_phone: chatLead.phone,
+      });
     } catch { setMsgs(m => [...m, { role: "assistant", text: "Having trouble connecting. Please WhatsApp us at +91 90043 43267 🙏" }]); }
     setLoading(false);
   };
@@ -2561,18 +2632,20 @@ export default function App() {
   const [modalProp, setModalProp] = useState(null);
   const [enquiryProp, setEnquiryProp] = useState(undefined);
   const [showQuiz, setShowQuiz] = useState(false);
-  const [showAdmin, setShowAdmin] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(() => window.location.search.includes('admin') || window.location.hash === '#admin');
   const [liveProps, setLiveProps] = useState([]);
   const [propsLoading, setPropsLoading] = useState(true);
 
   // Admin keyboard shortcut: Ctrl+Shift+A
   useEffect(() => {
     const handler = (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'A') window.open('/erth-admin-pro.html','_blank');
+      if (e.ctrlKey && e.shiftKey && e.key === 'A') setShowAdmin(true);
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, []);
+
+
 
   useEffect(() => {
     loadPropertiesFromDB().then(data => {
@@ -2644,7 +2717,7 @@ export default function App() {
       {enquiryProp !== undefined && <EnquiryModal prop={enquiryProp} onClose={() => setEnquiryProp(undefined)} />}
       {showQuiz && <MatchmakerQuiz onClose={() => setShowQuiz(false)} onEnquire={openEnquiry} />}
 
-      <FloatingButtons onEnquire={openEnquiry} />
+      <FloatingButtons onEnquire={openEnquiry} liveProps={ACTIVE_PROPS} />
       {showAdmin && <AdminGate onClose={() => setShowAdmin(false)} />}
     </div>
   );
