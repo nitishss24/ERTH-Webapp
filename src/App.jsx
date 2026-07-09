@@ -1543,15 +1543,21 @@ function CalculatorPage({ onEnquire }) {
 function FloatingButtons({ onEnquire, liveProps }) {
   const w = useW(); const mob = w < 768;
   const [chatOpen, setChatOpen] = useState(false);
-  const [msgs, setMsgs] = useState([{ role: "assistant", text: "Hi! I'm ERTH's AI Advisor 👋\n\nI help investors find the best second homes in Indore — with verified yields and zero broker commission.\n\nBefore we start, could I get your name and contact number? 🔒 Your information stays completely secure until you choose to speak with a property advisor.\n\nOnce done, ask me anything about properties, yields, or legal status!" }]);
+  const [msgs, setMsgs] = useState([{ role: "assistant", text: "Hi! I'm ERTH's AI Advisor 👋\n\nI help investors find the best second homes in Indore — with verified yields and zero broker commission.\n\nWhat are you looking for — a weekend home, an investment property, or something specific in mind?" }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [pulse, setPulse] = useState(true);
-  const [leadCaptured, setLeadCaptured] = useState(false);
-  const [chatLead, setChatLead] = useState({ name:null, phone:null });
+  const [chatLead, setChatLead] = useState({ name:null, phone:null, email:null });
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [contactFormAsked, setContactFormAsked] = useState(false);
+  const [contactFormDismissed, setContactFormDismissed] = useState(false);
+  const [showAdvisorPrompt, setShowAdvisorPrompt] = useState(false);
+  const [advisorPromptAsked, setAdvisorPromptAsked] = useState(false);
+  const [leadFinalized, setLeadFinalized] = useState(false);
+  const [contactForm, setContactForm] = useState({ name:"", phone:"", email:"" });
   const [chatSessionId] = useState(() => "chat_" + Date.now() + "_" + Math.random().toString(36).slice(2,8));
   const endRef = useRef(null);
-  useEffect(() => { if (chatOpen) endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs, chatOpen]);
+  useEffect(() => { if (chatOpen) endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs, chatOpen, showContactForm, showAdvisorPrompt]);
   useEffect(() => { const t = setTimeout(() => setPulse(false), 5000); return () => clearTimeout(t); }, []);
 
   // Build a live property summary for the AI system prompt from real Supabase data
@@ -1559,20 +1565,45 @@ function FloatingButtons({ onEnquire, liveProps }) {
     `${i+1}. ${p.title} — ${p.location} — ${p.price}${p.yield ? ` — ${p.yield}% verified yield` : ""} — ${p.status}`
   ).join("\n");
 
-  // Save/update the chat lead in Supabase + fire email once we have name+phone
-  const captureLeadFromChat = async (name, phone, transcript) => {
-    if (leadCaptured) return; // only notify once per session
-    const leadPayload = {
-      name: name || "WhatsApp Chat Lead",
-      phone: phone,
-      message: transcript.slice(-500),
-      source: "Website AI Chat",
-      status: "New",
-      lead_score: "hot", // anyone who shares a phone number in chat is a hot lead
-    };
-    setLeadCaptured(true);
-    await saveToSupabase("leads", leadPayload);
-    await notifyLead(leadPayload);
+  // Count only real user chat turns (not counting form submission)
+  const userTurnCount = msgs.filter(m => m.role === "user").length;
+
+  // ── Submit the contact form (name/phone/email) ──────────────
+  const submitContactForm = () => {
+    if (!contactForm.name || !contactForm.phone) return;
+    setChatLead({ name: contactForm.name, phone: contactForm.phone, email: contactForm.email });
+    setShowContactForm(false);
+    const thankYou = `Thanks, ${contactForm.name}! 🙏 Got it — your details are safe with us and won't be shared until you decide to connect with an advisor.\n\nNow, what can I help you with?`;
+    setMsgs(m => [...m, { role: "assistant", text: thankYou }]);
+    // Save initial lead record — status still open, score TBD until conversation concludes
+    saveToSupabase("leads", {
+      name: contactForm.name, phone: contactForm.phone, email: contactForm.email || null,
+      message: msgs.map(m => `${m.role}: ${m.text}`).join("\n").slice(-500),
+      source: "Website AI Chat", status: "New", lead_score: "warm",
+    });
+  };
+
+  // ── User responds to "connect with advisor?" prompt ─────────
+  const respondAdvisorPrompt = async (wantsAdvisor) => {
+    setShowAdvisorPrompt(false);
+    setLeadFinalized(true);
+    const finalScore = wantsAdvisor ? "hot" : "warm";
+    const replyText = wantsAdvisor
+      ? "Perfect! 🎉 An ERTH advisor will call you within 2 hours to help you move forward. Thanks for chatting with me!"
+      : "No problem at all! Feel free to browse erthreality.com anytime, and I'm here if you have more questions later. 😊";
+    setMsgs(m => [...m, { role: "user", text: wantsAdvisor ? "Yes, connect me with an advisor" : "No, just browsing for now" }, { role: "assistant", text: replyText }]);
+
+    if (chatLead.phone) {
+      const leadPayload = {
+        name: chatLead.name, phone: chatLead.phone, email: chatLead.email || null,
+        message: msgs.map(m => `${m.role}: ${m.text}`).join("\n").slice(-800),
+        source: "Website AI Chat",
+        status: wantsAdvisor ? "Contacted" : "New",
+        lead_score: finalScore,
+      };
+      await saveToSupabase("leads", leadPayload);
+      await notifyLead(leadPayload);
+    }
   };
 
   const send = async () => {
@@ -1581,15 +1612,6 @@ function FloatingButtons({ onEnquire, liveProps }) {
     const newMsgs = [...msgs, { role: "user", text: userMsg }];
     setMsgs(newMsgs);
     setLoading(true);
-
-    // ── LEAD CAPTURE: detect phone number anywhere in the message ──
-    const phone = extractPhone(userMsg);
-    const name = extractName(userMsg) || chatLead.name;
-    if (phone && !chatLead.phone) {
-      setChatLead({ name, phone });
-      const transcript = newMsgs.map(m => `${m.role}: ${m.text}`).join("\n");
-      captureLeadFromChat(name, phone, transcript);
-    }
 
     try {
       const history = msgs.map(m => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.text }));
@@ -1610,12 +1632,9 @@ ${propsForAI || "Properties loading — direct them to browse erthreality.com/pr
 
 Keep replies short (2-4 sentences). Be warm and helpful, and respond in Hinglish if the user writes in Hindi/Hinglish. Always mention the broker fee saving for any property you recommend.
 
-IMPORTANT LEAD CAPTURE RULES:
-- The greeting message already asked the user for their name and contact number, with a reassurance that it stays secure until they opt to speak with an advisor.
-- If the user's very first reply does NOT include a name and phone number, politely repeat the ask before answering their question — e.g. "Happy to help! Could you first share your name and number so I can personalise this for you? 🔒 It stays private until you choose to talk to our advisor."
-- Do not be pushy about it more than twice — if they clearly want to browse first, let them, and ask again naturally after you've helped them once (e.g. "By the way, if you'd like our advisor to call you with more details, just share your name and number anytime — 100% secure until you say go.")
-- Once they DO share a name and phone number, thank them warmly, confirm an ERTH advisor will call within 2 hours, and continue helping them.
-- Never ask for their number a third time in the same conversation.`,
+Do NOT ask for the user's name, phone number, or contact details yourself — that is handled separately by the app after their first reply. Just focus on answering their property questions naturally and helpfully.
+
+If the conversation feels like it's wrapping up (user says thanks, seems satisfied, or has no more questions), give a warm closing answer — the app will separately ask if they want to talk to an advisor.`,
           messages: [...history, { role: "user", content: userMsg }],
         }),
       });
@@ -1623,7 +1642,6 @@ IMPORTANT LEAD CAPTURE RULES:
       const replyText = data.content?.[0]?.text || "Sorry, let me connect you with our team directly. Please WhatsApp us!";
       setMsgs(m => [...m, { role: "assistant", text: replyText }]);
 
-      // Save every conversation turn to chat_sessions for admin visibility (best-effort)
       saveToSupabase("chat_sessions", {
         session_id: chatSessionId,
         last_message: userMsg,
@@ -1631,6 +1649,20 @@ IMPORTANT LEAD CAPTURE RULES:
         lead_name: chatLead.name,
         lead_phone: chatLead.phone,
       });
+
+      // ── STATE MACHINE: decide what happens next ──────────────
+      const updatedUserTurns = userTurnCount + 1;
+
+      // After the user's 1st reply, ask for contact details (once)
+      if (updatedUserTurns === 1 && !contactFormAsked && !chatLead.phone) {
+        setContactFormAsked(true);
+        setTimeout(() => setShowContactForm(true), 500);
+      }
+      // After 2-3 more exchanges (i.e. 3-4 total user turns), ask about connecting to advisor — only once, and only if we have contact info
+      else if (updatedUserTurns >= 3 && !advisorPromptAsked && chatLead.phone && !leadFinalized) {
+        setAdvisorPromptAsked(true);
+        setTimeout(() => setShowAdvisorPrompt(true), 600);
+      }
     } catch { setMsgs(m => [...m, { role: "assistant", text: "Having trouble connecting. Please WhatsApp us at +91 90043 43267 🙏" }]); }
     setLoading(false);
   };
@@ -1656,6 +1688,36 @@ IMPORTANT LEAD CAPTURE RULES:
                 <div style={{ maxWidth: "80%", background: m.role === "user" ? C.forest : C.white, color: m.role === "user" ? "#fff" : C.charcoal, padding: "9px 12px", borderRadius: m.role === "user" ? "12px 12px 3px 12px" : "12px 12px 12px 3px", fontSize: 12, lineHeight: 1.65, fontFamily: "Georgia,serif", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", whiteSpace: "pre-wrap" }}>{m.text}</div>
               </div>
             ))}
+
+            {/* Inline contact capture form */}
+            {showContactForm && (
+              <div style={{ background: C.white, borderRadius: 12, padding: "14px", boxShadow: "0 1px 6px rgba(0,0,0,0.08)", border: `1.5px solid ${C.forest}25` }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
+                  <span style={{ fontSize: 15 }}>🔒</span>
+                  <span style={{ fontSize: 11.5, fontWeight: 700, color: C.forest }}>Quick & Secure</span>
+                </div>
+                <p style={{ fontSize: 10.5, color: C.gray, marginBottom: 10, lineHeight: 1.5 }}>Share your details so I can personalise this for you. <strong>100% secure — no spam, never shared</strong> until you choose to talk to an advisor.</p>
+                <input value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} placeholder="Your name *" style={{ width: "100%", boxSizing: "border-box", background: C.cream, border: "1.5px solid #DDD", borderRadius: 7, padding: "8px 11px", fontSize: 12, marginBottom: 7, outline: "none", fontFamily: "Georgia,serif" }} />
+                <input value={contactForm.phone} onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))} placeholder="Phone number *" type="tel" style={{ width: "100%", boxSizing: "border-box", background: C.cream, border: "1.5px solid #DDD", borderRadius: 7, padding: "8px 11px", fontSize: 12, marginBottom: 7, outline: "none", fontFamily: "Georgia,serif" }} />
+                <input value={contactForm.email} onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))} placeholder="Email (optional)" type="email" style={{ width: "100%", boxSizing: "border-box", background: C.cream, border: "1.5px solid #DDD", borderRadius: 7, padding: "8px 11px", fontSize: 12, marginBottom: 10, outline: "none", fontFamily: "Georgia,serif" }} />
+                <div style={{ display: "flex", gap: 7 }}>
+                  <button onClick={submitContactForm} disabled={!contactForm.name || !contactForm.phone} style={{ flex: 1, background: (!contactForm.name || !contactForm.phone) ? "#CCC" : `linear-gradient(135deg,${C.forest},${C.forestLight})`, border: "none", borderRadius: 7, cursor: (!contactForm.name || !contactForm.phone) ? "not-allowed" : "pointer", color: "#fff", padding: "9px", fontSize: 11.5, fontWeight: 700, fontFamily: "Georgia,serif" }}>Continue Chat</button>
+                  <button onClick={() => { setShowContactForm(false); setContactFormDismissed(true); }} style={{ background: "none", border: "none", cursor: "pointer", color: C.gray, fontSize: 11, padding: "9px 10px" }}>Skip</button>
+                </div>
+              </div>
+            )}
+
+            {/* Advisor connect confirmation prompt */}
+            {showAdvisorPrompt && (
+              <div style={{ background: C.white, borderRadius: 12, padding: "14px", boxShadow: "0 1px 6px rgba(0,0,0,0.08)", border: `1.5px solid ${C.gold}35` }}>
+                <p style={{ fontSize: 12, color: C.charcoal, marginBottom: 12, fontWeight: 600 }}>Would you like an ERTH property advisor to call you and help you move forward?</p>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button onClick={() => respondAdvisorPrompt(true)} style={{ flex: 1, background: `linear-gradient(135deg,${C.forest},${C.forestLight})`, border: "none", borderRadius: 7, cursor: "pointer", color: "#fff", padding: "9px", fontSize: 11.5, fontWeight: 700, fontFamily: "Georgia,serif" }}>✅ Yes, connect me</button>
+                  <button onClick={() => respondAdvisorPrompt(false)} style={{ flex: 1, background: C.cream, border: "1.5px solid #DDD", borderRadius: 7, cursor: "pointer", color: C.gray, padding: "9px", fontSize: 11.5, fontWeight: 700, fontFamily: "Georgia,serif" }}>Not yet</button>
+                </div>
+              </div>
+            )}
+
             {loading && <div style={{ display: "flex", gap: 7, alignItems: "flex-end" }}><div style={{ width: 26, height: 26, borderRadius: "50%", background: `linear-gradient(135deg,${C.forest},${C.tan})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, flexShrink: 0, color: "#fff", fontWeight: 800 }}>E</div><div style={{ background: C.white, padding: "10px 14px", borderRadius: "12px 12px 12px 3px", display: "flex", gap: 3 }}>{[0, 1, 2].map(i => <div key={i} style={{ width: 5, height: 5, borderRadius: "50%", background: C.forest, animation: `bounce .9s ${i * 0.2}s infinite` }} />)}</div></div>}
             <div ref={endRef} />
           </div>
