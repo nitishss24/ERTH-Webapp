@@ -946,7 +946,7 @@ function Nav({ page, go, onEnquire }) {
       }}>
         {/* Logo */}
         <div onClick={() => nav("home")} style={{ cursor: "pointer", display: "flex", alignItems: "center", flexShrink: 0 }}>
-          <img src={LOGO_WHITE} alt="ERTH Reality" style={{ height: mob ? 26 : 30, width: "auto", objectFit: "contain" }} />
+          <img src={LOGO_WHITE} alt="ERTH Reality" style={{ height: mob ? 36 : 42, width: "auto", objectFit: "contain" }} />
         </div>
 
         {/* Desktop nav */}
@@ -1788,7 +1788,7 @@ function Footer({ go, onAdmin }) {
           <div style={{ gridColumn: mob ? "1/-1" : "auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
               <div style={{ width: 26, height: 26, borderRadius: "50%", background: `linear-gradient(135deg,${C.forest},${C.tan})`, display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ color: "#fff", fontWeight: 800, fontSize: 10 }}>E</span></div>
-              <img src={LOGO_WHITE} alt="ERTH Reality" onClick={() => { const c = parseInt(sessionStorage.getItem("ec")||0)+1; sessionStorage.setItem("ec",c); if(c>=5){sessionStorage.removeItem("ec"); window.open("/erth-admin-pro.html","_blank");} }} style={{ height: 20, width:"auto", objectFit:"contain", cursor:"default", userSelect:"none" }} />
+              <img src={LOGO_WHITE} alt="ERTH Reality" onClick={() => { const c = parseInt(sessionStorage.getItem("ec")||0)+1; sessionStorage.setItem("ec",c); if(c>=5){sessionStorage.removeItem("ec"); window.open("/erth-admin-pro.html","_blank");} }} style={{ height: 28, width:"auto", objectFit:"contain", cursor:"default", userSelect:"none" }} />
             </div>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, lineHeight: 1.7, maxWidth: 220, marginBottom: 10 }}>India's first AI-powered second home marketplace. Zero broker fee. Now live in Indore.</p>
             <div style={{ color: C.tan, fontSize: 11 }}>sales@erthreality.com</div>
