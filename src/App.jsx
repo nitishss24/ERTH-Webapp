@@ -1794,11 +1794,11 @@ function Footer({ go, onAdmin }) {
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, lineHeight: 1.7, maxWidth: 220, marginBottom: 10 }}>India's first AI-powered second home marketplace. Zero broker fee. Now live in Indore.</p>
             <div style={{ color: C.tan, fontSize: 11 }}>sales@erthreality.com</div>
           </div>
-          {[{ h: "Platform", i: ["Properties", "Market Intel", "Legal AI", "NRI Corner", "About Us"] }, { h: "Locations", i: ["Mhow", "Simrol", "Omkareshwar", "Rau & Palasia"] }, { h: "Company", i: ["About Us", "Zero Broker Promise", "Investors", "Press"] }].map(col => (
+          {[{ h: "Platform", i: ["Properties", "Market Intel", "Legal AI", "Refer & Earn", "NRI Corner", "About Us"] }, { h: "Locations", i: ["Mhow", "Simrol", "Omkareshwar", "Rau & Palasia"] }, { h: "Company", i: ["About Us", "Zero Broker Promise", "Investors", "Press"] }].map(col => (
             <div key={col.h}>
               <h4 style={{ color: C.tan, fontSize: 10, letterSpacing: 2, textTransform: "uppercase", marginBottom: 12, fontWeight: 600 }}>{col.h}</h4>
               {col.i.map(item => {
-              const dest = item==="Properties"?"properties":item==="Market Intel"?"market":item==="Legal AI"?"legal":item==="NRI Corner"?"nri":item==="About Us"?"about":item==="Mhow"||item==="Simrol"||item==="Omkareshwar"||item==="Rau & Palasia"?"properties":null;
+              const dest = item==="Properties"?"properties":item==="Market Intel"?"market":item==="Legal AI"?"legal":item==="Refer & Earn"?"refer":item==="NRI Corner"?"nri":item==="About Us"?"about":item==="Mhow"||item==="Simrol"||item==="Omkareshwar"||item==="Rau & Palasia"?"properties":null;
               return (
                 <div key={item} onClick={() => dest && go(dest)} style={{ color: dest?C.tan:"rgba(255,255,255,0.35)", fontSize: 11, marginBottom: 7, cursor: dest?"pointer":"default", transition:"color .2s" }}
                   onMouseEnter={e => { if(dest) e.target.style.color="#fff"; }}
@@ -2432,6 +2432,205 @@ Remember: this is a trust-building free service for ERTH Reality (erthreality.co
   );
 }
 
+
+// ══════════════════════════════════════════════════════
+// REFER A FRIEND PROGRAM
+// ══════════════════════════════════════════════════════
+function ReferPage({ go }) {
+  const w = useW(); const mob = w < 768;
+  const [step, setStep] = useState("form"); // form | success
+  const [form, setForm] = useState({ yourName:"", yourPhone:"", yourEmail:"", friendName:"", friendPhone:"" });
+  const [loading, setLoading] = useState(false);
+  const [referralCode, setReferralCode] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const generateCode = (name) => {
+    const clean = (name || "ERTH").replace(/[^a-zA-Z]/g, "").toUpperCase().slice(0, 5);
+    const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
+    return `${clean}${rand}`;
+  };
+
+  const handleSubmit = async () => {
+    if (!form.yourName || !form.yourPhone || !form.friendName || !form.friendPhone) return;
+    setLoading(true);
+    const code = generateCode(form.yourName);
+    await saveToSupabase("referrals", {
+      referral_code: code,
+      referrer_name: form.yourName, referrer_phone: form.yourPhone, referrer_email: form.yourEmail || null,
+      referee_name: form.friendName, referee_phone: form.friendPhone,
+      status: "Pending",
+    });
+    const leadPayload = {
+      name: form.friendName, phone: form.friendPhone,
+      message: `Referred by ${form.yourName} (${form.yourPhone}) via Refer-a-Friend program. Referral code: ${code}`,
+      source: "Refer a Friend", status: "New", lead_score: "warm",
+    };
+    await saveToSupabase("leads", leadPayload);
+    await notifyLead(leadPayload);
+    setReferralCode(code);
+    setLoading(false);
+    setStep("success");
+  };
+
+  const shareMsg = `Hi! I'm exploring second homes through ERTH — India's first AI-powered second home marketplace with ZERO broker commission. Verified yields, legal clarity, free site visits. Check them out: erthreality.com`;
+  const shareText = encodeURIComponent(shareMsg);
+  const shareUrl = encodeURIComponent("https://erthreality.com");
+
+  return (
+    <div style={{ minHeight: "100vh", background: C.cream }}>
+
+      {/* ── HERO ── */}
+      <div style={{ background: `linear-gradient(135deg,${C.forestDark} 0%,${C.forest} 55%,${C.forestLight} 100%)`, paddingTop: mob ? 78 : 106, paddingBottom: mob ? 40 : 0, position: "relative", overflow: "hidden" }}>
+        {/* Decorative circles */}
+        <div style={{ position: "absolute", top: -80, right: -60, width: 320, height: 320, borderRadius: "50%", border: `1px solid rgba(196,168,130,0.15)` }} />
+        <div style={{ position: "absolute", top: 40, right: 40, width: 180, height: 180, borderRadius: "50%", background: "rgba(196,168,130,0.08)" }} />
+        <div style={{ position: "absolute", bottom: -100, left: -60, width: 260, height: 260, borderRadius: "50%", background: "rgba(61,107,92,0.3)" }} />
+
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: mob ? "0 18px 44px" : "0 32px 70px", display: "grid", gridTemplateColumns: mob ? "1fr" : "1.1fr 0.9fr", gap: mob ? 30 : 40, alignItems: "center", position: "relative", zIndex: 2 }}>
+
+          {/* Left — headline + form */}
+          <div>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(196,168,130,0.15)", border: "1px solid rgba(196,168,130,0.3)", borderRadius: 30, padding: "6px 14px", marginBottom: 18 }}>
+              <span style={{ fontSize: 13 }}>🎁</span>
+              <span style={{ color: C.tan, fontSize: 10.5, fontWeight: 700, letterSpacing: 1.5 }}>REFER & EARN PROGRAM</span>
+            </div>
+
+            <h1 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 34 : 52, fontWeight: 700, color: "#fff", lineHeight: 1.08, marginBottom: 16 }}>
+              Refer a friend.<br/><span style={{ color: C.tan }}>Get paid.</span>
+            </h1>
+
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: mob ? 14 : 15.5, lineHeight: 1.6, marginBottom: 24, maxWidth: 440 }}>
+              Know someone hunting for a second home? Send them to ERTH — when their deal closes, real money lands in your account. No cap. No catch.
+            </p>
+
+            {/* Checklist */}
+            <div style={{ marginBottom: 26 }}>
+              {[
+                "Earn ₹7,500 – ₹25,000 per closed referral",
+                "Get a personal referral code instantly",
+                "Track every referral's status live",
+                "Unlimited referrals — no earning cap",
+              ].map((item, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 11 }}>
+                  <div style={{ width: 20, height: 20, borderRadius: "50%", background: C.green, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <span style={{ color: "#fff", fontSize: 11, fontWeight: 800 }}>✓</span>
+                  </div>
+                  <span style={{ color: "rgba(255,255,255,0.85)", fontSize: 13.5 }}>{item}</span>
+                </div>
+              ))}
+            </div>
+
+            {!mob && (
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <a href="#refer-form" style={{ background: `linear-gradient(135deg,${C.tan},${C.gold})`, color: C.forestDark, border: "none", borderRadius: 10, padding: "14px 30px", fontFamily: "Georgia,serif", fontWeight: 800, fontSize: 14.5, textDecoration: "none", display: "inline-block", boxShadow: "0 8px 24px rgba(184,149,90,0.35)" }}>Start Referring →</a>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <a href={`https://twitter.com/intent/tweet?text=${shareText}`} target="_blank" rel="noreferrer" style={{ width: 42, height: 42, borderRadius: "50%", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, textDecoration: "none" }}>𝕏</a>
+                  <a href={`https://wa.me/?text=${shareText}`} target="_blank" rel="noreferrer" style={{ width: 42, height: 42, borderRadius: "50%", background: "rgba(37,211,102,0.2)", border: "1px solid rgba(37,211,102,0.4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, textDecoration: "none" }}>💬</a>
+                  <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank" rel="noreferrer" style={{ width: 42, height: 42, borderRadius: "50%", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, textDecoration: "none", color: "#fff" }}>f</a>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Right — reward tier card */}
+          <div style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 20, padding: mob ? "22px 20px" : "30px 28px" }}>
+            <div style={{ color: C.tan, fontSize: 10, letterSpacing: 2, textTransform: "uppercase", fontWeight: 700, marginBottom: 18, textAlign: "center" }}>Your Reward, Instantly Calculated</div>
+            {[
+              { range: "Deal under ₹75L", reward: "₹7,500", c: C.tan },
+              { range: "Deal ₹75L – ₹1.5Cr", reward: "₹15,000", c: C.tanLight },
+              { range: "Deal above ₹1.5Cr", reward: "₹25,000", c: "#fff", hi: true },
+            ].map((t, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 18px", background: t.hi ? "rgba(196,168,130,0.18)" : "rgba(255,255,255,0.04)", border: t.hi ? `1.5px solid ${C.tan}` : "1px solid rgba(255,255,255,0.08)", borderRadius: 12, marginBottom: 10 }}>
+                <span style={{ color: "rgba(255,255,255,0.7)", fontSize: 12.5 }}>{t.range}</span>
+                <span style={{ color: t.c, fontSize: 22, fontWeight: 800, fontFamily: "Georgia,serif" }}>{t.reward}</span>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+
+      {/* ── HOW IT WORKS ── */}
+      <div style={{ maxWidth: 1000, margin: "0 auto", padding: mob ? "36px 18px" : "56px 32px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "repeat(3,1fr)", gap: mob ? 16 : 24 }}>
+          {[
+            ["01", "🔗", "Refer", "Share your friend's details or your referral link with them"],
+            ["02", "🤝", "We Connect", "Our advisor calls within 24 hours and guides them personally"],
+            ["03", "💰", "You Earn", "The moment their deal closes, your reward is on its way"],
+          ].map(([n, icon, t, d], i) => (
+            <div key={i} style={{ background: C.white, borderRadius: 16, padding: mob ? "22px 18px" : "28px 24px", border: "1px solid #E8E0D0", position: "relative" }}>
+              <div style={{ position: "absolute", top: 16, right: 20, fontSize: 32, fontWeight: 800, color: "#F0EAE0", fontFamily: "Georgia,serif" }}>{n}</div>
+              <div style={{ fontSize: 30, marginBottom: 12 }}>{icon}</div>
+              <div style={{ fontFamily: "Georgia,serif", fontSize: 17, fontWeight: 700, color: C.charcoal, marginBottom: 8 }}>{t}</div>
+              <div style={{ color: C.gray, fontSize: 12.5, lineHeight: 1.6 }}>{d}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── FORM / SUCCESS ── */}
+      <div id="refer-form" style={{ maxWidth: 640, margin: "0 auto", padding: mob ? "0 18px 60px" : "0 32px 80px" }}>
+
+        {step === "form" && (
+          <div style={{ background: C.white, borderRadius: 18, padding: mob ? "24px 20px" : "34px 38px", border: "1px solid #E8E0D0", boxShadow: "0 12px 40px rgba(0,0,0,0.06)" }}>
+            <div style={{ fontFamily: "Georgia,serif", fontSize: mob ? 19 : 22, fontWeight: 700, color: C.charcoal, marginBottom: 4 }}>Submit Your Referral</div>
+            <div style={{ color: C.gray, fontSize: 12.5, marginBottom: 22 }}>Takes 30 seconds. Your friend gets a call within 24 hours.</div>
+
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: C.forest, textTransform: "uppercase", letterSpacing: 0.6, marginBottom: 9 }}>👤 Your Details</div>
+              <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "1fr 1fr", gap: 10 }}>
+                <input value={form.yourName} onChange={e => setForm(f => ({ ...f, yourName: e.target.value }))} placeholder="Your name *" style={{ background: C.cream, border: "1.5px solid #DDD", borderRadius: 9, padding: "11px 14px", fontSize: 13, outline: "none", fontFamily: "Georgia,serif" }} />
+                <input value={form.yourPhone} onChange={e => setForm(f => ({ ...f, yourPhone: e.target.value }))} placeholder="Your phone *" type="tel" style={{ background: C.cream, border: "1.5px solid #DDD", borderRadius: 9, padding: "11px 14px", fontSize: 13, outline: "none", fontFamily: "Georgia,serif" }} />
+              </div>
+              <input value={form.yourEmail} onChange={e => setForm(f => ({ ...f, yourEmail: e.target.value }))} placeholder="Your email (optional)" type="email" style={{ width: "100%", boxSizing: "border-box", background: C.cream, border: "1.5px solid #DDD", borderRadius: 9, padding: "11px 14px", fontSize: 13, outline: "none", fontFamily: "Georgia,serif", marginTop: 10 }} />
+            </div>
+
+            <div style={{ marginBottom: 22 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: C.forest, textTransform: "uppercase", letterSpacing: 0.6, marginBottom: 9 }}>🎯 Your Friend's Details</div>
+              <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "1fr 1fr", gap: 10 }}>
+                <input value={form.friendName} onChange={e => setForm(f => ({ ...f, friendName: e.target.value }))} placeholder="Friend's name *" style={{ background: C.cream, border: "1.5px solid #DDD", borderRadius: 9, padding: "11px 14px", fontSize: 13, outline: "none", fontFamily: "Georgia,serif" }} />
+                <input value={form.friendPhone} onChange={e => setForm(f => ({ ...f, friendPhone: e.target.value }))} placeholder="Friend's phone *" type="tel" style={{ background: C.cream, border: "1.5px solid #DDD", borderRadius: 9, padding: "11px 14px", fontSize: 13, outline: "none", fontFamily: "Georgia,serif" }} />
+              </div>
+            </div>
+
+            <button onClick={handleSubmit} disabled={loading || !form.yourName || !form.yourPhone || !form.friendName || !form.friendPhone}
+              style={{ width: "100%", background: (loading || !form.yourName || !form.yourPhone || !form.friendName || !form.friendPhone) ? "#CCC" : `linear-gradient(135deg,${C.forest},${C.forestLight})`, border: "none", borderRadius: 10, padding: "15px", cursor: (loading || !form.yourName || !form.yourPhone || !form.friendName || !form.friendPhone) ? "not-allowed" : "pointer", color: "#fff", fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 14.5, boxShadow: "0 6px 20px rgba(44,74,62,0.25)" }}>
+              {loading ? "Submitting..." : "Submit Referral & Get My Code →"}
+            </button>
+
+            <p style={{ fontSize: 10.5, color: C.gray, marginTop: 12, textAlign: "center" }}>🔒 Your friend's details are only used to connect them with an ERTH advisor.</p>
+          </div>
+        )}
+
+        {step === "success" && (
+          <div style={{ background: C.white, borderRadius: 18, padding: mob ? "36px 22px" : "48px 40px", border: "1px solid #E8E0D0", boxShadow: "0 12px 40px rgba(0,0,0,0.06)", textAlign: "center" }}>
+            <div style={{ width: 72, height: 72, borderRadius: "50%", background: `${C.green}15`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px", fontSize: 34 }}>🎉</div>
+            <h2 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 22 : 27, fontWeight: 700, color: C.charcoal, marginBottom: 10 }}>You're all set!</h2>
+            <p style={{ color: C.gray, fontSize: 13, marginBottom: 26, maxWidth: 420, margin: "0 auto 26px" }}>Our advisor will reach out to <strong>{form.friendName}</strong> within 24 hours. Track your reward status anytime by messaging us your code.</p>
+
+            <div style={{ background: `linear-gradient(135deg,${C.forest},${C.forestDark})`, borderRadius: 14, padding: "20px 24px", marginBottom: 22, display: "inline-block" }}>
+              <div style={{ color: "rgba(255,255,255,0.5)", fontSize: 10, marginBottom: 5, letterSpacing: 1 }}>YOUR REFERRAL CODE</div>
+              <div style={{ color: C.tan, fontSize: 26, fontWeight: 800, fontFamily: "Georgia,serif", letterSpacing: 3 }}>{referralCode}</div>
+            </div>
+
+            <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginBottom: 10 }}>
+              <a href={`https://wa.me/?text=${shareText}`} target="_blank" rel="noreferrer" style={{ background: "#25D366", color: "#fff", border: "none", borderRadius: 9, padding: "12px 22px", fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 7 }}>💬 WhatsApp</a>
+              <a href={`https://twitter.com/intent/tweet?text=${shareText}`} target="_blank" rel="noreferrer" style={{ background: C.charcoal, color: "#fff", border: "none", borderRadius: 9, padding: "12px 22px", fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 7 }}>𝕏 Tweet</a>
+              <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank" rel="noreferrer" style={{ background: "#1877F2", color: "#fff", border: "none", borderRadius: 9, padding: "12px 22px", fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 7 }}>f Share</a>
+              <button onClick={() => { navigator.clipboard.writeText("erthreality.com"); setCopied(true); setTimeout(() => setCopied(false), 2000); }} style={{ background: C.cream, border: `1.5px solid ${C.forest}`, borderRadius: 9, padding: "12px 22px", cursor: "pointer", color: C.forest, fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 13 }}>{copied ? "✓ Copied!" : "📋 Copy Link"}</button>
+            </div>
+
+            <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 18, paddingTop: 18, borderTop: "1px solid #F0EAE0" }}>
+              <button onClick={() => { setStep("form"); setForm({ yourName: form.yourName, yourPhone: form.yourPhone, yourEmail: form.yourEmail, friendName: "", friendPhone: "" }); }} style={{ background: "none", border: `1.5px solid ${C.forest}`, borderRadius: 8, padding: "10px 20px", cursor: "pointer", color: C.forest, fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 12 }}>Refer Another Friend</button>
+              <button onClick={() => go("properties")} style={{ background: "none", border: "1.5px solid #DDD", borderRadius: 8, padding: "10px 20px", cursor: "pointer", color: C.gray, fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 12 }}>Browse Properties</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function AboutPage({ go, onEnquire }) {
   const w = useW(); const mob = w < 768;
 
@@ -2919,6 +3118,18 @@ export default function App() {
       {page === "home" && <>
         <Hero go={go} setSQ={setSQ} onEnquire={openEnquiry} onMatchmaker={() => setShowQuiz(true)} />
         <Features go={go} />
+
+        {/* Refer & Earn banner */}
+        <section style={{ background: C.cream, padding: mob ? "32px 14px" : "50px 32px" }}>
+          <div style={{ maxWidth: 1000, margin: "0 auto", background: `linear-gradient(135deg,${C.forest},${C.forestDark})`, borderRadius: 18, padding: mob ? "26px 20px" : "36px 44px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 18 }}>
+            <div style={{ maxWidth: 520 }}>
+              <div style={{ color: C.tan, fontSize: 10, letterSpacing: 2, textTransform: "uppercase", fontWeight: 700, marginBottom: 8 }}>REFER & EARN</div>
+              <div style={{ fontFamily: "Georgia,serif", fontSize: mob ? 20 : 26, fontWeight: 700, color: "#fff", marginBottom: 8 }}>Know someone looking for a second home?</div>
+              <div style={{ color: "rgba(255,255,255,0.55)", fontSize: 13 }}>Refer a friend to ERTH — earn up to ₹25,000 when their deal closes.</div>
+            </div>
+            <button onClick={() => go("refer")} style={{ background: `linear-gradient(135deg,${C.tan},${C.gold})`, border: "none", borderRadius: 9, cursor: "pointer", color: C.forestDark, padding: mob ? "13px 24px" : "15px 30px", fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 14, flexShrink: 0 }}>Refer Now →</button>
+          </div>
+        </section>
         <section style={{ background: C.cream, padding: mob ? "52px 14px" : "80px 32px" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: mob ? "flex-start" : "flex-end", marginBottom: mob ? 22 : 36, flexDirection: mob ? "column" : "row", gap: 12 }}>
@@ -2960,6 +3171,7 @@ export default function App() {
       {page === "market" && <><MarketPage onEnquire={openEnquiry} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
       {page === "nri" && <><NRIPage onEnquire={openEnquiry} go={go} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
       {page === "legal" && <><LegalAIPage go={go} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
+      {page === "refer" && <><ReferPage go={go} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
       {page === "about" && <><AboutPage go={go} onEnquire={openEnquiry} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
 
       {/* Modals */}
