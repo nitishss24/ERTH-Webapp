@@ -40,7 +40,7 @@ function extractName(text) {
 // ─────────────────────────────────────────────────────────────────
 
 const C = {
-  forest: "#2C4A3E", forestLight: "#3D6B5C", forestDark: "#1A2E26",
+  forest: "#3D6B54", forestLight: "#4F8168", forestDark: "#2A4A3A",
   tan: "#C4A882", tanLight: "#DEC9A8", gold: "#B8955A",
   cream: "#F5F0E8", creamDark: "#EDE5D5",
   charcoal: "#2A2A2A", gray: "#6B6B6B", white: "#FAFAF7",
@@ -952,8 +952,8 @@ function Nav({ page, go, onEnquire }) {
         {/* Desktop nav */}
         {!mob && (
           <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
-            {["Properties", "Market Intelligence", "NRI", "About"].map(l => (
-              <button key={l} onClick={() => nav(l === "Market Intelligence" ? "market" : l === "NRI" ? "nri" : l === "About" ? "about" : l.toLowerCase())} style={{
+            {["Properties", "Market Intelligence", "Legal AI", "NRI", "About"].map(l => (
+              <button key={l} onClick={() => nav(l === "Market Intelligence" ? "market" : l === "Legal AI" ? "legal" : l === "NRI" ? "nri" : l === "About" ? "about" : l.toLowerCase())} style={{
                 background: "none", border: "none", cursor: "pointer",
                 color: page === l.toLowerCase() ? C.tan : "rgba(255,255,255,0.65)",
                 fontFamily: "Georgia,serif", fontSize: 13, letterSpacing: 1.5,
@@ -1002,8 +1002,8 @@ function Nav({ page, go, onEnquire }) {
               </div>
             ))}
           </div>
-          {["Properties", "Market Intelligence", "NRI", "About"].map(l => (
-            <button key={l} onClick={() => nav(l === "Market Intelligence" ? "market" : l === "NRI" ? "nri" : l === "About" ? "about" : l.toLowerCase())} style={{
+          {["Properties", "Market Intelligence", "Legal AI", "NRI", "About"].map(l => (
+            <button key={l} onClick={() => nav(l === "Market Intelligence" ? "market" : l === "Legal AI" ? "legal" : l === "NRI" ? "nri" : l === "About" ? "about" : l.toLowerCase())} style={{
               display: "block", width: "100%", background: "none", border: "none",
               borderBottom: "1px solid rgba(196,168,130,0.08)",
               cursor: "pointer", color: page===l.toLowerCase() ? C.tan : "rgba(255,255,255,0.8)",
@@ -1747,12 +1747,12 @@ If the conversation feels like it's wrapping up (user says thanks, seems satisfi
 // ══════════════════════════════════════════════════════
 // FEATURES + FOOTER
 // ══════════════════════════════════════════════════════
-function Features() {
+function Features({ go }) {
   const w = useW(); const mob = w < 768;
   const feats = [
     { icon: "🚫", title: "Zero Broker Fee", desc: "Save ₹1.5–5L on every deal. No middlemen, no hidden charges.", c: C.red },
     { icon: "✓", title: "Verified Yields", desc: "ERTH-verified rental data — not broker projections. Cross-checked against real Airbnb & rental comps.", c: C.gold },
-    { icon: "⚖️", title: "Legal Clarity", desc: "RERA number, title status, encumbrance report, and land type on every listing.", c: C.blue },
+    { icon: "⚖️", title: "Legal Clarity + Free Legal AI", desc: "RERA, title & encumbrance on every listing — plus a free AI legal advisor for any property dispute.", c: C.blue, link: "legal" },
     { icon: "🤖", title: "AI Matchmaker", desc: "60-second quiz. AI matches you to your top 3 properties based on budget, lifestyle, and ROI goals.", c: C.forest },
     { icon: "🚗", title: "Free Site Visit", desc: "Our advisor drives you to any shortlisted property — no commitment needed.", c: C.green },
     { icon: "🏦", title: "EMI vs Rent Tool", desc: "See your real monthly cost after rental income offsets your EMI. One number, full clarity.", c: "#7C3AED" },
@@ -1767,10 +1767,11 @@ function Features() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr 1fr" : "repeat(3,1fr)", gap: mob ? 10 : 18 }}>
           {feats.map((f, i) => (
-            <div key={i} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, padding: mob ? "16px 13px" : "24px 20px", borderTop: `3px solid ${f.c}` }}>
+            <div key={i} onClick={() => f.link && go && go(f.link)} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, padding: mob ? "16px 13px" : "24px 20px", borderTop: `3px solid ${f.c}`, cursor: f.link ? "pointer" : "default", transition: "transform .2s" }}>
               <div style={{ fontSize: mob ? 22 : 26, marginBottom: 10 }}>{f.icon}</div>
               <h3 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 13 : 15, fontWeight: 700, color: C.white, marginBottom: 6 }}>{f.title}</h3>
               <p style={{ color: "rgba(255,255,255,0.4)", fontSize: mob ? 11 : 12, lineHeight: 1.6 }}>{f.desc}</p>
+              {f.link && <div style={{ color: C.tan, fontSize: 11, marginTop: 8, fontWeight: 700 }}>Try it free →</div>}
             </div>
           ))}
         </div>
@@ -1793,11 +1794,11 @@ function Footer({ go, onAdmin }) {
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, lineHeight: 1.7, maxWidth: 220, marginBottom: 10 }}>India's first AI-powered second home marketplace. Zero broker fee. Now live in Indore.</p>
             <div style={{ color: C.tan, fontSize: 11 }}>sales@erthreality.com</div>
           </div>
-          {[{ h: "Platform", i: ["Properties", "Market Intel", "NRI Corner", "About Us"] }, { h: "Locations", i: ["Mhow", "Simrol", "Omkareshwar", "Rau & Palasia"] }, { h: "Company", i: ["About Us", "Zero Broker Promise", "Investors", "Press"] }].map(col => (
+          {[{ h: "Platform", i: ["Properties", "Market Intel", "Legal AI", "NRI Corner", "About Us"] }, { h: "Locations", i: ["Mhow", "Simrol", "Omkareshwar", "Rau & Palasia"] }, { h: "Company", i: ["About Us", "Zero Broker Promise", "Investors", "Press"] }].map(col => (
             <div key={col.h}>
               <h4 style={{ color: C.tan, fontSize: 10, letterSpacing: 2, textTransform: "uppercase", marginBottom: 12, fontWeight: 600 }}>{col.h}</h4>
               {col.i.map(item => {
-              const dest = item==="Properties"?"properties":item==="Market Intel"?"market":item==="NRI Corner"?"nri":item==="About Us"?"about":item==="Mhow"||item==="Simrol"||item==="Omkareshwar"||item==="Rau & Palasia"?"properties":null;
+              const dest = item==="Properties"?"properties":item==="Market Intel"?"market":item==="Legal AI"?"legal":item==="NRI Corner"?"nri":item==="About Us"?"about":item==="Mhow"||item==="Simrol"||item==="Omkareshwar"||item==="Rau & Palasia"?"properties":null;
               return (
                 <div key={item} onClick={() => dest && go(dest)} style={{ color: dest?C.tan:"rgba(255,255,255,0.35)", fontSize: 11, marginBottom: 7, cursor: dest?"pointer":"default", transition:"color .2s" }}
                   onMouseEnter={e => { if(dest) e.target.style.color="#fff"; }}
@@ -2250,6 +2251,180 @@ function NRIPage({ onEnquire, go }) {
 // ══════════════════════════════════════════════════════
 // ABOUT US PAGE
 // ══════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════
+// ERTH LEGAL AI — Free Real Estate Legal Consultation
+// ══════════════════════════════════════════════════════
+function LegalAIPage({ go }) {
+  const w = useW(); const mob = w < 768;
+  const [msgs, setMsgs] = useState([{ role: "assistant", text: "Namaste! I'm ERTH Legal AI 🧑‍⚖️\n\nI can help you with:\n• RERA complaints & builder delays\n• Possession & refund disputes\n• Area mismatch issues\n• Title, encumbrance & registration queries\n• Stamp duty & NRI property law\n\nWhat's your legal question today? This consultation is 100% free." }]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [contactFormAsked, setContactFormAsked] = useState(false);
+  const [contactForm, setContactForm] = useState({ name:"", phone:"", email:"" });
+  const [leadSaved, setLeadSaved] = useState(false);
+  const endRef = useRef(null);
+  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs, showContactForm]);
+
+  const userTurnCount = msgs.filter(m => m.role === "user").length;
+
+  const submitContactForm = async () => {
+    if (!contactForm.name || !contactForm.phone) return;
+    setShowContactForm(false);
+    setLeadSaved(true);
+    const transcript = msgs.map(m => `${m.role}: ${m.text}`).join("\n").slice(-800);
+    const leadPayload = {
+      name: contactForm.name, phone: contactForm.phone, email: contactForm.email || null,
+      message: transcript, source: "ERTH Legal AI", status: "New", lead_score: "hot",
+    };
+    setMsgs(m => [...m, { role: "assistant", text: `Thanks, ${contactForm.name}! 🙏 Your query has been noted. If you'd like a detailed review from our legal partner, our team will reach out within 24 hours. Meanwhile, ask me anything else!` }]);
+    await saveToSupabase("leads", leadPayload);
+    await notifyLead(leadPayload);
+  };
+
+  const send = async () => {
+    if (!input.trim() || loading) return;
+    const userMsg = input.trim(); setInput("");
+    const newMsgs = [...msgs, { role: "user", text: userMsg }];
+    setMsgs(newMsgs);
+    setLoading(true);
+    try {
+      const history = msgs.map(m => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.text }));
+      const res = await fetch("/api/legal-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system: `You are ERTH Legal AI — a specialized real estate legal assistant for India, with deep expertise in Madhya Pradesh RERA and property law. You provide free, genuinely helpful legal guidance to property buyers and investors.
+
+YOUR KNOWLEDGE COVERS:
+- RERA Act 2016: builder obligations, project registration, buyer rights, penalty provisions (Section 18 for delayed possession with interest at SBI MCLR+2%)
+- MP RERA specifics: MP RERA portal (rera.mp.gov.in), complaint filing process, adjudicating officer procedures, timelines (typically 60-90 days for resolution)
+- Possession delays: buyer's right to refund with interest OR compensation for delay under Section 18; how to calculate interest
+- Area mismatch: carpet area vs super built-up area disputes, RERA's carpet area mandate, remedies if delivered area differs from agreement
+- Builder-buyer agreement red flags: one-sided clauses, arbitrary cancellation clauses, force majeure misuse
+- Title verification: encumbrance certificate (EC), 30-year title chain, mutation records, how to verify via sub-registrar office
+- Stamp duty & registration: MP stamp duty rates (~7.5-9.5% depending on category, women get rebate), registration process at sub-registrar
+- NRI property law: FEMA guidelines, repatriation rules, power of attorney requirements, TDS on NRI property sales (20-30%)
+- Stuck/delayed projects: insolvency (NCLT) process if developer goes bankrupt, RERA vs consumer court vs civil court — which to choose
+- Refund process: how buyers can exit and get refund with interest, documentation needed
+- Consumer Protection Act angle: when to file in consumer forum vs RERA
+
+YOUR APPROACH:
+- Give clear, actionable, specific answers — cite relevant RERA sections when relevant (e.g. "Section 18 of RERA entitles you to...")
+- Be empathetic — many people asking are stressed about delayed possession or lost money
+- Always clarify: "This is general guidance, not a substitute for a lawyer reviewing your specific documents"
+- Keep answers concise (3-5 sentences) unless the question needs a detailed breakdown
+- If the question is outside real estate/property law, politely redirect to that being outside your scope
+- Respond in Hinglish if user writes in Hindi/Hinglish
+- Do NOT ask for contact details yourself — the app handles that separately after their first message
+
+Remember: this is a trust-building free service for ERTH Reality (erthreality.com) — a second home marketplace. Be genuinely helpful, not salesy.`,
+          messages: [...history, { role: "user", content: userMsg }],
+        }),
+      });
+      const data = await res.json();
+      const replyText = data.content?.[0]?.text || "I'm having trouble connecting. Please WhatsApp us at +91 90043 43267 for immediate legal guidance.";
+      setMsgs(m => [...m, { role: "assistant", text: replyText }]);
+
+      const updatedTurns = userTurnCount + 1;
+      if (updatedTurns === 1 && !contactFormAsked && !leadSaved) {
+        setContactFormAsked(true);
+        setTimeout(() => setShowContactForm(true), 500);
+      }
+    } catch {
+      setMsgs(m => [...m, { role: "assistant", text: "Connection issue — please WhatsApp us at +91 90043 43267 for immediate help." }]);
+    }
+    setLoading(false);
+  };
+
+  return (
+    <section style={{ minHeight: "100vh", background: C.cream, paddingTop: mob ? 62 : 106, paddingBottom: 60 }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: mob ? "0 14px" : "0 32px" }}>
+
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: mob ? 22 : 32 }}>
+          <p style={{ color: C.forest, fontSize: 10, letterSpacing: 3, textTransform: "uppercase", marginBottom: 6, fontWeight: 700 }}>FREE LEGAL CONSULTATION</p>
+          <h2 style={{ fontFamily: "Georgia,serif", fontSize: mob ? 26 : 38, fontWeight: 700, color: C.charcoal, marginBottom: 8 }}>ERTH Legal AI 🧑‍⚖️</h2>
+          <p style={{ color: C.gray, fontSize: 13, maxWidth: 560, margin: "0 auto" }}>Get instant, expert guidance on RERA, builder disputes, possession delays, refunds & more — powered by AI, backed by real estate law knowledge. 100% free.</p>
+        </div>
+
+        {/* Trust badges */}
+        <div style={{ display: "flex", justifyContent: "center", gap: mob ? 8 : 14, flexWrap: "wrap", marginBottom: mob ? 20 : 28 }}>
+          {["⚖️ RERA Expert", "🏗️ Builder Disputes", "💰 Refund Guidance", "🌏 NRI Property Law"].map(b => (
+            <div key={b} style={{ background: C.white, border: "1px solid #E0D8CC", borderRadius: 20, padding: "6px 14px", fontSize: 11, color: C.forest, fontWeight: 600 }}>{b}</div>
+          ))}
+        </div>
+
+        {/* Chat interface */}
+        <div style={{ background: C.white, borderRadius: 16, border: "1px solid #E0D8CC", overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.06)" }}>
+          <div style={{ background: `linear-gradient(135deg,${C.forest},${C.forestDark})`, padding: "16px 20px", display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ width: 42, height: 42, borderRadius: "50%", background: `linear-gradient(135deg,${C.tan},${C.gold})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>🧑‍⚖️</div>
+            <div>
+              <div style={{ color: "#fff", fontWeight: 700, fontSize: 14 }}>ERTH Legal AI</div>
+              <div style={{ color: "rgba(255,255,255,0.5)", fontSize: 10, display: "flex", alignItems: "center", gap: 4 }}><div style={{ width: 5, height: 5, borderRadius: "50%", background: "#4ADE80" }} />Online · Free consultation</div>
+            </div>
+          </div>
+
+          <div style={{ height: mob ? 380 : 440, overflowY: "auto", padding: "16px", display: "flex", flexDirection: "column", gap: 12, background: C.cream }}>
+            {msgs.map((m, i) => (
+              <div key={i} style={{ display: "flex", flexDirection: m.role === "user" ? "row-reverse" : "row", gap: 8, alignItems: "flex-end" }}>
+                {m.role === "assistant" && <div style={{ width: 28, height: 28, borderRadius: "50%", background: `linear-gradient(135deg,${C.forest},${C.tan})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, flexShrink: 0 }}>⚖️</div>}
+                <div style={{ maxWidth: "82%", background: m.role === "user" ? C.forest : C.white, color: m.role === "user" ? "#fff" : C.charcoal, padding: "10px 13px", borderRadius: m.role === "user" ? "12px 12px 3px 12px" : "12px 12px 12px 3px", fontSize: 12.5, lineHeight: 1.65, fontFamily: "Georgia,serif", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", whiteSpace: "pre-wrap" }}>{m.text}</div>
+              </div>
+            ))}
+
+            {showContactForm && (
+              <div style={{ background: C.white, borderRadius: 12, padding: 14, boxShadow: "0 1px 6px rgba(0,0,0,0.08)", border: `1.5px solid ${C.forest}25` }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
+                  <span style={{ fontSize: 15 }}>🔒</span>
+                  <span style={{ fontSize: 11.5, fontWeight: 700, color: C.forest }}>Optional — for follow-up</span>
+                </div>
+                <p style={{ fontSize: 10.5, color: C.gray, marginBottom: 10, lineHeight: 1.5 }}>Want our legal partner to review your specific documents? Share your details — <strong>100% secure, no spam</strong>.</p>
+                <input value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} placeholder="Your name *" style={{ width: "100%", boxSizing: "border-box", background: C.cream, border: "1.5px solid #DDD", borderRadius: 7, padding: "8px 11px", fontSize: 12, marginBottom: 7, outline: "none", fontFamily: "Georgia,serif" }} />
+                <input value={contactForm.phone} onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))} placeholder="Phone number *" type="tel" style={{ width: "100%", boxSizing: "border-box", background: C.cream, border: "1.5px solid #DDD", borderRadius: 7, padding: "8px 11px", fontSize: 12, marginBottom: 7, outline: "none", fontFamily: "Georgia,serif" }} />
+                <input value={contactForm.email} onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))} placeholder="Email (optional)" type="email" style={{ width: "100%", boxSizing: "border-box", background: C.cream, border: "1.5px solid #DDD", borderRadius: 7, padding: "8px 11px", fontSize: 12, marginBottom: 10, outline: "none", fontFamily: "Georgia,serif" }} />
+                <div style={{ display: "flex", gap: 7 }}>
+                  <button onClick={submitContactForm} disabled={!contactForm.name || !contactForm.phone} style={{ flex: 1, background: (!contactForm.name || !contactForm.phone) ? "#CCC" : `linear-gradient(135deg,${C.forest},${C.forestLight})`, border: "none", borderRadius: 7, cursor: (!contactForm.name || !contactForm.phone) ? "not-allowed" : "pointer", color: "#fff", padding: "9px", fontSize: 11.5, fontWeight: 700, fontFamily: "Georgia,serif" }}>Continue</button>
+                  <button onClick={() => setShowContactForm(false)} style={{ background: "none", border: "none", cursor: "pointer", color: C.gray, fontSize: 11, padding: "9px 10px" }}>Skip</button>
+                </div>
+              </div>
+            )}
+
+            {loading && <div style={{ display: "flex", gap: 8, alignItems: "flex-end" }}><div style={{ width: 28, height: 28, borderRadius: "50%", background: `linear-gradient(135deg,${C.forest},${C.tan})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12 }}>⚖️</div><div style={{ background: C.white, padding: "10px 14px", borderRadius: "12px 12px 12px 3px", display: "flex", gap: 3 }}>{[0,1,2].map(i => <div key={i} style={{ width: 5, height: 5, borderRadius: "50%", background: C.forest, animation: `bounce .9s ${i*0.2}s infinite` }} />)}</div></div>}
+            <div ref={endRef} />
+          </div>
+
+          {msgs.length <= 1 && (
+            <div style={{ padding: "8px 14px", borderTop: "1px solid #E0D8CC", display: "flex", gap: 6, overflowX: "auto", background: C.white, scrollbarWidth: "none" }}>
+              {["Builder delayed possession, what now?", "How to file RERA complaint?", "Area mismatch — my rights?"].map(s => (
+                <button key={s} onClick={() => setInput(s)} style={{ background: `${C.forest}10`, border: `1px solid ${C.forest}22`, borderRadius: 20, padding: "6px 12px", cursor: "pointer", whiteSpace: "nowrap", color: C.forest, fontSize: 10.5, fontFamily: "Georgia,serif", flexShrink: 0 }}>{s}</button>
+              ))}
+            </div>
+          )}
+
+          <div style={{ padding: "12px 14px", borderTop: "1px solid #E0D8CC", display: "flex", gap: 8, background: C.white }}>
+            <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} placeholder="Ask your legal question..." style={{ flex: 1, background: C.cream, border: "1.5px solid #DDD", borderRadius: 24, padding: "11px 16px", fontSize: 13, fontFamily: "Georgia,serif", outline: "none", color: C.charcoal }} />
+            <button onClick={send} disabled={loading || !input.trim()} style={{ background: input.trim() ? `linear-gradient(135deg,${C.forest},${C.forestLight})` : "#CCC", border: "none", borderRadius: "50%", width: 42, height: 42, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 16 }}>➤</button>
+          </div>
+        </div>
+
+        {/* Disclaimer */}
+        <div style={{ marginTop: 16, padding: "12px 16px", background: `${C.amber}10`, border: `1px solid ${C.amber}30`, borderRadius: 10, fontSize: 11, color: C.gray, lineHeight: 1.6 }}>
+          ⚠️ <strong>Disclaimer:</strong> ERTH Legal AI provides general guidance based on RERA and Indian property law for informational purposes. It is not a substitute for professional legal advice from a qualified lawyer reviewing your specific case documents. For complex disputes, we recommend consulting a real estate lawyer.
+        </div>
+
+        {/* CTA */}
+        <div style={{ marginTop: 20, textAlign: "center" }}>
+          <button onClick={() => go("properties")} style={{ background: "none", border: `1.5px solid ${C.forest}`, borderRadius: 8, padding: "10px 24px", cursor: "pointer", color: C.forest, fontFamily: "Georgia,serif", fontWeight: 700, fontSize: 13 }}>← Back to Properties</button>
+        </div>
+
+      </div>
+      <style>{`@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}`}</style>
+    </section>
+  );
+}
+
 function AboutPage({ go, onEnquire }) {
   const w = useW(); const mob = w < 768;
 
@@ -2736,7 +2911,7 @@ export default function App() {
 
       {page === "home" && <>
         <Hero go={go} setSQ={setSQ} onEnquire={openEnquiry} onMatchmaker={() => setShowQuiz(true)} />
-        <Features />
+        <Features go={go} />
         <section style={{ background: C.cream, padding: mob ? "52px 14px" : "80px 32px" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: mob ? "flex-start" : "flex-end", marginBottom: mob ? 22 : 36, flexDirection: mob ? "column" : "row", gap: 12 }}>
@@ -2777,6 +2952,7 @@ export default function App() {
       {page === "properties" && <><PropertiesPage sq={sq} onOpen={openModal} onEnquire={openEnquiry} props={ACTIVE_PROPS} loading={propsLoading} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
       {page === "market" && <><MarketPage onEnquire={openEnquiry} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
       {page === "nri" && <><NRIPage onEnquire={openEnquiry} go={go} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
+      {page === "legal" && <><LegalAIPage go={go} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
       {page === "about" && <><AboutPage go={go} onEnquire={openEnquiry} /><Footer go={go} onAdmin={() => setShowAdmin(true)} /></>}
 
       {/* Modals */}
