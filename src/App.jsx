@@ -2265,7 +2265,14 @@ function LegalAIPage({ go }) {
   const [contactForm, setContactForm] = useState({ name:"", phone:"", email:"" });
   const [leadSaved, setLeadSaved] = useState(false);
   const endRef = useRef(null);
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs, showContactForm]);
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    window.scrollTo(0, 0); // ensure page opens at the top, not scrolled to chat
+  }, []);
+  useEffect(() => {
+    if (isFirstRender.current) { isFirstRender.current = false; return; }
+    endRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [msgs, showContactForm]);
 
   const userTurnCount = msgs.filter(m => m.role === "user").length;
 
