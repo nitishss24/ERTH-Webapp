@@ -58,7 +58,7 @@ export default async function handler(req, res) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "ERTH Leads <onboarding@resend.dev>",
+        from: "ERTH Leads <leads@erthreality.com>",
         to: ["sales@erthreality.com"],
         subject: `${scoreEmoji} New Lead: ${name || "Unknown"} ${property_name ? "— " + property_name : ""}`,
         html,
